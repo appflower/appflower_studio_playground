@@ -1,0 +1,171 @@
+body {
+	background-color:#7C7C7C;
+	color:#404142;
+	font-family:Verdana,Arial,Tahoma,Sans-Serif;
+	font-size:10px;
+	line-height:16px;
+	margin-top:0px;
+	text-align:center;
+}
+
+a
+{
+  color: #81571F;
+  text-decoration: underline;
+}
+
+a:hover
+{
+  color: #CC0000;
+  text-decoration: none;
+}
+
+.sfTContainer
+{
+  position: relative;
+  text-align: left;
+  width: 515px;
+  margin: 0 auto;
+  padding: 0;
+  margin-top: 115px;
+}
+
+.sfTMessageContainer
+{
+  padding: 5px;
+  margin-top: 25px;
+  float: left;
+  width: 515px;
+}
+
+.sfTMessage
+{
+  background-image: url(/images/bg_sfTMessage.jpg);
+  background-repeat: repeat-x;
+  background-color: #E8DDCF;
+  border: 1px solid #FFFFFF;
+  border-bottom-color: #C2AB8C;
+  border-right-color: #C2AB8C;
+}
+
+.sfTAlert
+{
+  background-image: url(/images/bg_sfTAlert.jpg);
+  background-repeat: repeat-x;
+  background-color: #F8E1D1;
+  border: 1px solid #FFFFFF;
+  border-bottom-color: #F0B17C;
+  border-right-color: #F0B17C;
+}
+
+.sfTLock
+{
+/*  background-image: url(/images/bg_sfTLock.jpg);*/
+  background-repeat: repeat-x;
+  background-color: #E8DDCF;
+  border: 1px solid #FFFFFF;
+  border-bottom-color: #B1C4EC;
+  border-right-color: #B1C4EC;
+}
+
+.sfTMessageContainer .sfTMessageWrap
+{
+  float: left;
+  width: 440px;
+}
+
+.sfTMessageContainer .sfTMessageWrap h1
+{
+  color: #503512;
+  font-weight: normal;
+  font-size: 165%;
+  padding: 0;
+  margin: 0;
+  line-height: 100%;
+  padding-top: 5px;
+}
+
+.sfTMessageContainer .sfTMessageWrap h5
+{
+  font-weight: normal;
+  font-size: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+.sfTMessageContainer img.sfTMessageIcon
+{
+  width: 48px;
+  height: 48px;
+  float: left;
+  margin-right: 12px;
+  margin-left: 5px;
+}
+
+.sfTMessageInfo
+{
+  margin: 0;
+  padding: 0;
+  margin-top: 15px;
+  float: left;
+  width: 440px;
+}
+
+.sfTMessageInfo dt
+{
+  font-weight: bolder;
+  font-size: 115%;
+  margin: 5px 0;
+}
+
+.sfTMessageInfo dd
+{
+  margin: 0;
+  padding: 0;
+}
+
+.btn-primary {
+	background:#3399CC no-repeat scroll 0%;
+	border:1px solid #006699;
+	color:#FFFFFF;
+	font-family:arial,helvetica,sans-serif;
+	font-size:92%;
+	font-size-adjust:none;
+	font-stretch:normal;
+	font-style:normal;
+	font-variant:normal;
+	font-weight:bold;
+	line-height:normal;
+	overflow:visible;
+	padding:2px 8px 1px;
+	vertical-align:middle;
+}
+
+
+/* -[ NiceTextFields ]----------------------------------------------------- */
+select,.select {
+	width: 100%;
+	font-size: 8pt;
+	background-color: #FFFFFF;
+	float: right;
+	margin-bottom: 5px;
+}
+
+option.selected {
+	font-size: 8pt;
+	font-weight: normal;
+	font-style: normal;
+	color: #FFFFFF;
+	background-color: #9E9E9E;
+}
+
+.textfield, textarea, select {
+	width: 100%;
+	font-size: 8pt;
+	font-family:Arial,Helvetica,sans-serif;;
+	background-color: #FFFFFF;
+	color: #000000;
+	float: right;
+	margin-bottom: 5px;
+	border: 1px solid #aaaaaa;
+}

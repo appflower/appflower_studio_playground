@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<i:view xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://www.appflower.com /schema/appflower.xsd"
+xmlns:i="http://www.appflower.com/schema/" type="edit">
+
+  <i:title>Order of Widgets</i:title>
+
+  <i:fields url="wizard/install5">
+  
+    <i:field name="associated_widgets" label="Widgets" type="doublemulticombo" height="400px" state="editable" style="css">
+		<i:value type="orm">					
+			<i:class>PdfReportsPeer</i:class>
+			<i:method name="getWidgets">	
+			</i:method> 
+		</i:value>
+		<i:help>Selected widgets</i:help> 
+		<i:validator name="immValidatorRequired" />
+	</i:field>  	
+
+  </i:fields>
+  
+  <i:grouping>
+    <i:set title="Settings">
+      <i:ref to="associated_widgets" />
+    </i:set>
+
+  </i:grouping>
+</i:view>
+

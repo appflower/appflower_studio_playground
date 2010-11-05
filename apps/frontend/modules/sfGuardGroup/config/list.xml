@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<i:view xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xsi:schemaLocation="http://www.appflower.com /schema/appflower.xsd"
+xmlns:i="http://www.appflower.com/schema/" type="list">
+	
+<i:title>User Roles</i:title>
+
+<i:params>
+	<i:param name="maxperpage">20</i:param>
+</i:params>
+
+<i:proxy url="parser/listjson" />
+
+<i:datasource type="orm">
+	<i:class>sfGuardGroupPeer</i:class>
+	<i:method name="getAllGroups" type="static"></i:method>
+</i:datasource>
+
+<i:display>
+	<i:visible>name,description</i:visible>
+</i:display>
+
+<i:fields>
+	<i:column name="name" sortable="false" editable="false" resizable="false" label="Group Name" filter="[type:string]" 
+/>
+	<i:column name="description" sortable="false" editable="false" resizable="false" label="Description" filter="[type:string]" 
+/>
+</i:fields>
+
+<i:rowactions>
+	<i:action name="edit" url="sfGuardGroup/edit" iconCls="icon-edit-record" tooltip="Edit Role" condition="sfGuardGroupPeer,IsEditable"/>
+	<i:action name="delete" url="sfGuardGroup/delete" iconCls="icon-minus" tooltip="Delete Role" condition="sfGuardGroupPeer,IsEditable"/>
+</i:rowactions>
+
+<i:actions>
+	<i:action name="create"  url="sfGuardGroup/edit" iconCls="icon-plus" />
+</i:actions>
+
+<i:moreactions>
+	<i:action name="Delete Selected" confirmMsg="Are you sure to delete selected groups"  post="true" icon="/images/famfamfam/cross.png" url="/sfGuardGroup/listActionsRemoveUserGroup"></i:action>
+	<i:action name="Delete All" forceSelection="false" confirmMsg="Are you sure to delete all users"  post="true" icon="/images/famfamfam/cross.png" url="/sfGuardGroup/listActionsRemoveUserGroup/all"></i:action>
+</i:moreactions>
+
+<i:description>
+	<![CDATA[Permission groups can be created to control user previliges. A permission group can be assigned a selected number of site permissions. Each user can be assigned a set of permission groups and the user\'s access right is determined by the permission groups assigned. ]]>
+</i:description>
+
+</i:view>

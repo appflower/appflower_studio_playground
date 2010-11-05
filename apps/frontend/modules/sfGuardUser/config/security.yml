@@ -1,0 +1,27 @@
+all:
+  is_secure:   on
+
+listUser:
+  is_secure:   on
+  credentials: [[user_list_view,user_list_edit]]
+
+editUser:
+  is_secure:   on
+  credentials: user_list_edit
+      
+status:
+  is_secure:   on
+  credentials: user_list_edit
+
+deleteUser:
+  is_secure:   on
+  credentials: user_list_edit
+    
+listActionsRemoveUser:
+  is_secure:   on
+  credentials: user_list_edit
+
+listActionsUserStatus:
+  is_secure:   on
+  credentials: user_list_edit
+  

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<i:view xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xsi:schemaLocation="http://www.appflower.com /schema/appflower.xsd"
+xmlns:i="http://www.appflower.com/schema/" type="list">
+	
+<i:title>Site Permissions</i:title>
+
+<i:params>
+	<i:param name="maxperpage">20</i:param>
+</i:params>
+
+<i:proxy url="parser/listjson" />
+
+<i:datasource type="orm">
+	<i:class>sfGuardPermissionPeer</i:class>
+	<i:method name="getAll">
+		<i:param name="list">{list}</i:param>
+	</i:method>
+</i:datasource>
+
+<i:display>
+	<i:visible>name,description</i:visible>
+</i:display>
+
+<i:fields>
+	<i:column name="name" sortable="false" editable="false" resizable="false" label="Name" filter="[type:string]" 
+/>
+	<i:column name="description" sortable="false" editable="false" resizable="false" label="Description" filter="[type:string]" 
+/>
+</i:fields>
+
+<i:rowactions>
+	<i:action name="edit" url="sfGuardPermission/edit" iconCls="icon-edit-record" tooltip="Edit Role" condition="sfGuardPermissionPeer,IsEditable"/>
+	<i:action name="delete" url="sfGuardPermission/delete" iconCls="icon-minus" tooltip="Delete Role" condition="sfGuardPermissionPeer,IsEditable"/>
+</i:rowactions>
+
+<i:actions>
+    <i:action name="Add Permission" iconCls="icon-plus" url="sfGuardPermission/edit" />
+</i:actions>
+
+<i:description>
+	<![CDATA[Site permission is the permission available on a page. For example, adminstration_edit is the edit permission on the adminstration page. You can assign site permissions to the permission groups. If you assign site permission S to the permission group P, then a user with previlege P will have the right S. ]]>
+</i:description>
+
+</i:view>

@@ -1,0 +1,62 @@
+/*-----------------------------------------------------------------
+Basic StyleSheet
+
+Version:	1.0
+Author: 	Rasmus Schau-Seidler
+Email: 		rs@zornig.dk
+website:	www.zornig.dk
+-----------------------------------------------------------------*/
+@import url(layout.css);
+@import url(forms.css);
+
+h1, h2, h3, h4, h5, p, span, small, sub, sup, a {
+	font-family: Arial, Helvetica, sans-serif;
+	color: #333333;
+}
+
+h1 {
+	font-size: 22px;
+	font-weight: bold;
+}
+h2 {
+	font-size: 14px;
+	font-weight: bold;
+	color: #0a7085;
+}
+h3 {
+	font-size: 18px;
+	font-weight: bold;
+}
+h4 {}
+
+p {
+	display: block;
+	margin: 10px 0;
+	font-size: 13px;
+	line-height: 16px;
+}
+
+ul li {}
+
+h2 a:link, h2 a:visited, h2 a:active {
+	color: #0a7085;
+}
+
+a:link, a:visited, a:active {
+	font-size: 12px;
+	color: #0a7085;
+	text-decoration: none;
+}
+a:hover {
+	text-decoration: none;
+}
+
+a img {
+	border: 0;
+}
+
+small{
+	font-size: 11px;
+	color: #8d8d8d;
+}
+

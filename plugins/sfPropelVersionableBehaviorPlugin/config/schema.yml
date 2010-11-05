@@ -1,0 +1,25 @@
+propel:
+  _attributes:            { package: plugins.sfPropelVersionableBehaviorPlugin.lib.model }
+
+  resource_version:
+    id:
+    resource_id:          { type: integer, required: true }
+    resource_name:        { type: varchar, size: 255, required: true }
+    number:               { type: integer, size: 11 }
+    title:                { type: varchar, size: 255 }
+    comment:              { type: longvarchar }
+    created_by:           { type: varchar, size: 255 }
+    created_at:
+    resource_version_id:  { type: integer, size: 11, required: false, foreignTable: resource_version, foreignReference: id, onDelete: cascade }
+    _indexes:
+      resource_version_index: [resource_id, resource_name]
+
+  resource_attribute_version:
+    id:
+    attribute_name:       { type: varchar, size: 255, required: true }
+    attribute_value:      { type: longvarchar }
+
+  resource_attribute_version_hash:
+    resource_attribute_version_id:  { type: integer, size: 11, required: true, foreignTable: resource_attribute_version, foreignReference: id, onDelete: cascade, primaryKey: true }
+    resource_version_id:  { type: integer, size: 11, required: true, foreignTable: resource_version, foreignReference: id, onDelete: cascade, primaryKey: true }
+    is_modified:          { type: boolean }

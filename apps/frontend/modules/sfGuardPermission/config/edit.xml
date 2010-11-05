@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<i:view xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xsi:schemaLocation="http://www.appflower.com /schema/appflower.xsd"
+xmlns:i="http://www.appflower.com/schema/" type="edit">
+	
+<i:title>Editing Permission</i:title>
+
+<i:datasource type="orm">
+	<i:class>sfGuardPermissionPeer</i:class>
+	<i:method name="retrieveByPk">
+		<i:param name="id">{id}</i:param>
+	</i:method>
+</i:datasource>
+	
+<i:fields>
+	<i:field name="name" label="Name" type="input" state="editable" style="">
+		<i:value type="orm">
+			<i:source name="getName" />
+		</i:value>
+		
+		<i:validator name="sfValidatorString">
+			<i:param name="min_length">2</i:param>
+			<i:param name="max_length">100</i:param>
+			<i:param name="min_length_error">This field is too short (2 characters minimum)</i:param>
+			<i:param name="max_length_error">This field is too long (100 characters maximum)</i:param>
+		</i:validator>
+		<i:validator name="sfValidatorRegex">
+		    <i:param name="pattern">/^[a-z0-9\-_]+$/i</i:param>
+			<i:param name="invalid_error">This field contains only the following characters 'a-z0-9_-'!</i:param>		    
+		</i:validator>
+		<i:validator name="immValidatorRequired" />
+	</i:field>	
+	<i:field name="description" label="Description" type="textarea" state="editable" style="">
+		<i:value type="orm">
+			<i:source name="getDescription" />
+		</i:value>		
+		<i:validator name="immValidatorRequired">
+		    <i:param name="required_error">The field does not contain whitespace characters only!</i:param>
+		</i:validator>
+	</i:field>
+	<i:field name="id" type="hidden" state="editable" style="">
+		<i:value type="orm">
+			<i:source name="getId" />
+		</i:value>
+		
+	</i:field>
+</i:fields>
+
+<i:actions>
+	<i:action name="list" url="sfGuardPermission/list" />
+</i:actions>
+<i:description>
+	<![CDATA[	You can create a new site permission or edit an existing one from this widget. The name should be properly chosen since the system uses the name to determine what the site permission means. adminstration_edit, for example, is the site permission that represents edit access in the administration page. So the site permission should be of the form page_accessRight. ]]>
+</i:description>
+</i:view>

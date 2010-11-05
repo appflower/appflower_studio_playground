@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<i:view xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xsi:schemaLocation="http://www.appflower.com /schema/appflower.xsd"
+xmlns:i="http://www.appflower.com/schema/" type="edit">
+	
+<i:title>Editing Permission Group</i:title>
+
+<i:datasource type="orm">
+	<i:class>sfGuardGroupPeer</i:class>
+	<i:method name="retrieveByPk">
+		<i:param name="id">{id}</i:param>
+	</i:method>
+</i:datasource>
+	
+<i:fields>
+	<i:field name="name" label="Name" type="input" state="editable" style="">
+		<i:value type="orm">
+			<i:source name="getName" />
+		</i:value>
+		<i:help>The name of the permission group.</i:help>
+		<i:comment>The name of the permission group.</i:comment>
+		<i:validator name="immValidatorName" />
+		<i:validator name="immValidatorUnique">
+			<i:param name="class">sfGuardGroup</i:param>
+			<i:param name="column">name</i:param>
+			<i:param name="unique_error">Permission group with this name already exists. Please choose another one.</i:param>
+		</i:validator>
+	</i:field>	
+	<i:field name="associated_sf_guard_group" label="Permissions" type="doublemulticombo" state="editable" style="">
+		<i:value type="orm">
+			<i:class>sfGuardGroupPermissionPeer</i:class>
+			<i:method name="getGroupPermissions">
+				<i:param name="id">{id}</i:param>
+			</i:method>
+		</i:value>
+		<i:help>Select the permissions to associate with this permission group.</i:help>
+		<i:comment>The selected permissions will be associated with this permission group.</i:comment>
+		<i:validator name="immValidatorRequired" />
+	</i:field>
+	<i:field name="description" label="Description" type="textarea" state="editable" style="">
+		<i:value type="orm">
+			<i:source name="getDescription" />
+		</i:value>
+		<i:help>A brief descirption about this permission group.</i:help>
+		<i:comment>A brief description about this permission group.</i:comment>
+	</i:field>
+	
+	<i:field name="id" type="hidden" state="editable" style="">
+		<i:value type="orm">
+			<i:source name="getId" />
+		</i:value>
+		
+	</i:field>
+</i:fields>
+
+<i:actions>
+	<i:action name="list" url="sfGuardGroup/list" />
+</i:actions>
+
+<i:description>
+	<![CDATA[You can create a new permission group or edit an existing one from this widget. Select the site permissions you want to assign to this permission group from the left text area and then push it to the right. ]]>
+</i:description>
+</i:view>

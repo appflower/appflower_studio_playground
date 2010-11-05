@@ -1,0 +1,6 @@
+all:
+  layout: layoutAuth
+  
+secureSuccess:
+  stylesheets: [layoutAuth, -oneness/fixed]
+  javascripts:    [eula, cookie]

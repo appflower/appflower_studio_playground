@@ -1,0 +1,21 @@
+/*-----------------------------------------------------------------
+IE6 - stylefix
+
+Version:	1.0
+Author: 	Rasmus Schau-Seidler
+Email: 		rs@zornig.dk
+website:	www.zornig.dk
+-----------------------------------------------------------------*/
+
+/* Tabs */
+
+
+ul.tabs li {
+	float: left;
+	list-style: none outside;
+	background: url('/images/page/tab_left_corner.gif') no-repeat top left;
+	margin-right: 2px;
+	width: 20px !important;
+}
+
+/* TABS END */

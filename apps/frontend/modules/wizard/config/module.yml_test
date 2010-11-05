@@ -1,0 +1,135 @@
+# default values
+
+  ############################################################################
+  # - Wizard validation rules # Used by all Wiazrds ------------------------ #
+  ############################################################################
+
+all:
+  .wizard:
+    patterns: [ 
+      r: [ 
+        msg: 'This field may not be empty!', 
+        rule: '/^[\s]*$/',
+        result: true
+        ]
+      e: [ 
+        msg: "This field may not be empty!", 
+        rule: "/^[\s]+$/", 
+        result: true 
+        ]
+      i: [ 
+        msg: "This is not a valid IP address!", 
+        rule: "/^([1-2]{1}[0-9]{0,2}|[1-9]{1,2})\.([1-2]{1}[0-9]{0,2}|[1-9]{1,2}|0)\.([1-2]{1}[0-9]{0,2}|[1-9]{1,2}|0)\.([1-2]{1}[0-9]{0,2}|[1-9]{1,2}|0)$/", 
+        result: false
+        ]
+      d: [ 
+        msg: "This is not a valid domain name or IP address!", 
+        rule: "/(^([1-2]{1}[0-9]{0,2}|[1-9]{1,2})\.([1-2]{1}[0-9]{0,2}|[1-9]{1,2}|0)\.([1-2]{1}[0-9]{0,2}|[1-9]{1,2}|0)\.([1-2]{1}[0-9]{0,2}|[1-9]{1,2}|0)$)|(^[a-z\-_]+[0-9]*\.[a-z0-9\.\-_]*[a-z]{2,3}$)/i", 
+        result: false 
+        ]
+      n: [ 
+        msg: "This value is invalid, it may contain the following characters: A-Za-z0-09!", 
+        rule: "/^[a-z0-9]+$/i", 
+        result: false 
+        ]
+      h: [ 
+        msg: "This field may contain only the following characters 'a-z0-9_-'!", 
+        rule: "/^[a-z0-9\-_]+$/i", 
+        result: false 
+        ]
+      D: [ 
+        msg: "This is not a valid date!", 
+        rule: "/^[1-2]{1}[0-9]{3}-[0-9]{2}-[0-9]{2}$/i", 
+        result: false 
+        ]
+      t: [ 
+        msg: "This is not valid time!", 
+        rule: "/^[0-9]{2}-[0-9]{2}-[0-9]{2}$/i", 
+        result: false 
+        ]
+      T: [ 
+        msg: "This is not valid date-time value!", 
+        rule: "/^[1-2]{1}[0-9]{3}-[0-9]{2}-[0-9]{2} [0-9]{2}-[0-9]{2}-[0-9]{2}$/i", 
+        result: false 
+        ]
+      N: [ 
+        msg: "This is not a number!", 
+        rule: "/^[0-9]+$/i", 
+        result: false 
+        ]
+      p: [ 
+        msg: "This is password is invalid!", 
+        rule: "/^[a-z0-9]{8,}$/i", 
+        result: false 
+        ]
+      E: [ 
+        msg: "This is not a valid email address!", 
+        rule: "/^[a-z0-9_\-\.]+@[a-z0-9_\-\.]+$/i", 
+        result: false 
+        ]
+    ]
+    
+    
+  ############################################################################
+  # - Setup Wizard configuration ------------------------------------------- #
+  ############################################################################
+    
+  
+  setupWizard:  [
+    prefix: 'setup'
+    name: 'Logex Setup Wizard'
+    javascripts: [
+      - eula
+      - cookie
+    ]
+    proceed: [
+      text: 'Please click here to login..'
+      url: '/'
+    ]
+    popup: false
+    steps:  [
+      1: [ 
+        title: 'Product Registration', 
+        classes: [
+          - { name: Customer, select: 'id=1' }
+          - { name: LicenseKey, select: 'customer_id=1' }
+        ]
+        text: |
+          Please spare a few munites of your time and register your copy of Logex today!
+          
+          Benefits of registration includes:
+          
+          - Blah blah
+          - Blah blah blah
+        fields: [
+          name: { type: 'input', label: 'Name', validate: 'rn', help: 'Please provide your full name.'  }
+          address: { type: 'input', label: 'Address', validate: 'r', help: 'Your address in this form.: street / no.'  }
+          zipcode: { type: 'input', label: 'Zipcode', validate: 'r', help: 'Please provide yor zipcode.'  }
+          city: { type: 'input', label: 'City', validate: 'r', help: 'Please provide the name of your city.'  }
+          country: { type: 'input', label: 'Country', validate: 'r', help: 'Please provide the name of your country.'  }
+          phone: { type: 'input', label: 'Phone', validate: 'rn', help: 'A land line or mobile phone number.'  }
+          hardware_number: { 
+            type: 'input',
+            label: 'Hardware Key',
+            validate: 'r',
+            items: {
+               LicenseKeyPeer: { fetchMethod: 'retrieveDefault', valueMethod: 'getHardwareNumber' }
+            }
+            help: 'System Hardware Key'
+          }
+          software_number: { 
+            type: 'input',
+            label: 'Software Key',
+            validate: 'r',
+            help: 'Software Key'
+          }
+          activation_key: { 
+            type: 'input',
+            label: 'Activation Key',
+            validate: [License, checkMatchKeysOnApplianceArgs, 'false', 'The keys doesn't match! Please try with valid ones !', software_number, hardware_number ],
+            help: 'Activation Key'
+          }
+        ]
+        ]
+    ]
+  ]

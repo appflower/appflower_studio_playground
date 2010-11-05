@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<i:view xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://www.appflower.com /schema/appflower.xsd"
+xmlns:i="http://www.appflower.com/schema/" type="edit">
+
+  <i:title>Report Wizard</i:title>
+
+	<i:datasource type="orm">
+		<i:class>PdfReportsPeer</i:class>
+		<i:method name="retrieveByPk">
+			<i:param name="id">{id}</i:param>
+		</i:method>
+	</i:datasource>
+
+  <i:fields>
+  
+    <i:field name="title" type="input" state="editable" width="500" label="Report Title">
+      <i:value type="orm">
+			<i:source name="getTitle" />
+		</i:value>
+	  <i:comment>This is title of the report. It appears on the cover page as well as in all the page headers.</i:comment>
+     <i:validator name="immValidatorRequired" />
+    </i:field>
+
+    <i:field name="intro" type="textarea" width="500" state="editable" style="" label="Report Intro">
+      <i:value type="orm">
+			<i:source name="getIntro" />
+		</i:value>
+	  <i:comment>This is a general description of the report will be placed on a separate page as formatted text. Please provide it as plain text or use our XML tags for text formatting.</i:comment>
+    </i:field>
+
+    <i:field name="description" type="textarea" width="500" state="editable" style="" label="Template Description">
+      <i:value type="orm">
+			<i:source name="getDescription" />
+		</i:value>
+	  <i:comment>A short description of the report. This will not be displayed in the generated files, it is for your own records only. Please provide this as plain text.</i:comment>
+      <i:validator name="immValidatorRequired" />
+    </i:field>
+	
+    <i:field name="timezones_id" label="Time Zone" width="500" type="combo" state="editable" selected="{zone}" style="css">
+		<i:value type="orm">					
+			<i:class>TimeZonesPeer</i:class>
+			<i:method name="getAll" /> 
+		</i:value> 
+		<i:comment>The timezone which the data output should rendered as.</i:comment> 
+	</i:field>
+
+    <i:field name="report_type" label="Generation Type" width="500" type="combo" state="editable" selected="{type}" style="css">
+		<i:value type="orm">					
+			<i:class>PdfReportsPeer</i:class>
+			<i:method name="getTypes" /> 
+		</i:value> 
+		<i:comment>Adhoc or recourring report generation</i:comment> 
+	</i:field>
+	
+	<i:field name="asset_list" label="Listing Type" width="500" type="combo" state="editable" selected="{atype}" style="css">
+		<i:value type="orm">					
+			<i:class>PdfReportsPeer</i:class>
+			<i:method name="getAssetListTypes" /> 
+		</i:value> 
+		<i:comment>This is how the servers in the report will be listed.</i:comment> 
+	</i:field>
+
+  </i:fields>
+  
+  <i:grouping>
+    <i:set title="Settings">
+      <i:ref to="title" />
+      <i:ref to="intro" />
+      <i:ref to="description" />
+      <i:ref to="timezones_id" />
+      <i:ref to="report_type" />
+	  <i:ref to="asset_list" />
+    </i:set>
+
+  </i:grouping>
+</i:view>
+

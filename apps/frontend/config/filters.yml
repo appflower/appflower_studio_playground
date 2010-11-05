@@ -1,0 +1,24 @@
+rendering: ~
+security:  ~
+
+csrf:
+ class: sfCSRFFilter
+ param:
+   secret: 1cf56bd447817ac5e951dd37cb1e31fe   
+   
+cache:     ~
+common:    ~
+
+extjs_layout: 
+  class: ImmExtJsLayoutFilter
+
+parser_validation: 
+  class: XmlParserValidationFilter
+
+null_filter: 
+  class: NullFilter
+
+exception_catching:
+  class: ExceptionCatchingFilter
+
+execution: ~

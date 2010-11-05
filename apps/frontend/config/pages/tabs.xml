@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<i:view xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://www.appflower.com /schema/appflower.xsd"
+xmlns:i="http://www.appflower.com/schema/" type="layout">
+
+	<i:title>Tabs</i:title>	
+    
+	<i:area type="content" layout="1">
+        <i:tab title="Tab 1">
+        	<i:component column="0" name="listUser" module="sfGuardUser"></i:component>
+   	 	</i:tab>	 
+   	 	<i:tab title="Tab 2">
+        	<i:component column="0" name="list" module="sfGuardGroup"></i:component>
+   	 	</i:tab>
+	</i:area>
+    
+	<i:widgetCategories>
+	</i:widgetCategories>
+    
+</i:view>

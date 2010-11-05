@@ -1,0 +1,12 @@
+passwordRequestSuccess:
+  layout: layoutAuth
+
+  stylesheets: [layoutAuth, -oneness/fixed]
+  
+passwordRequestMailSent:
+  layout: layoutAuth
+
+  stylesheets: [layoutAuth, -oneness/fixed]
+
+regenerateSuccess:
+  has_layout: off

@@ -1,0 +1,59 @@
+@CHARSET "UTF-8";
+
+/* Message */
+    
+.message-box {
+    background: #fff !important;
+    border: ridge 4px #fff;
+    color: #000;
+    text-align: center;
+    padding: 4px 4px 4px 6px;
+}
+
+.message-box-shadow {
+    background: #aaa;
+    color: #000;
+}
+
+.message-box p {
+    text-align: center;
+    padding: 0;
+    margin: 0 0 5px 0;
+}
+
+
+.message-box-title {
+    font-size: 14px !important;
+    font-weight: bold;
+    color: #000;
+    background: inherit;
+    text-align: center;
+    border: solid 2px #fff;
+    margin-bottom: 10px;
+}
+
+.message-container {
+    text-align: center;
+    background: rgb(245,245,255);
+    color: #000;
+}
+
+.message-box-progressbar, .message-box-progressbar-bg {
+    background: rgb(97,125,175);
+    color: #fff;
+    height: 16px;
+}
+
+.message-box-progressbar-bg {
+    border: inset 2px #fff;
+    background: #000;
+    color: #fff;
+}
+
+.message-box-blink {
+	text-decoration: blink;	
+	margin: 2px auto 5px auto;
+}
+
+    
+/* Message end */

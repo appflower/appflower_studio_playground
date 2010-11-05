@@ -1,0 +1,483 @@
+= sfPropelVersionableBehaviorPlugin plugin =
+
+The `sfPropelVersionableBehaviorPlugin` is a symfony plugin that provides versioning capabilities to any Propel object.
+
+== Features ==
+
+ * Revert objects to previous versions easily
+ * Track and browse history of modifications on every object
+ * Conditional versioning
+ * Fully unit tested
+
+== Installation ==
+
+  * Install the plugin
+  
+    {{{
+#!sh
+> php symfony plugin-install http://plugins.symfony-project.com/sfPropelVersionableBehaviorPlugin
+    }}}
+
+  * Enable Propel behavior support in `propel.ini`:
+
+    {{{
+propel.builder.AddBehaviors = true
+    }}}
+  
+  * Add a `version` field to each of the model tables that you want to make versionable:
+  
+    {{{
+#!xml
+<!-- schema.xml -->
+<column name="version" type="INTEGER" />
+or
+# config/schema.yml
+version: { type: integer }
+    }}}
+    
+    Alternatively, you can choose another name that `version` and declare it in the behavior initialization. Even though, the behavior will still provide a `getVersion` and `setVersion` method for your versionable models.
+
+  * Rebuild your model and sql, insert the plugin tables to your database, and the new version column to your versionable tables:
+  
+    {{{
+#!sh
+> php symfony propel-build-model
+> php symfony propel-build-sql
+> mysql -uroot -p mydb < data/sql/plugins.sfPropelVersionableBehaviorPlugin.lib.model.schema.sql
+> mysql -uroot -p mydb -e 'ALTER TABLE `Article` ADD `version` INTEGER NOT NULL;'
+    }}}
+  
+  * Enable the behavior for the Propel models that you want to extend. For instance, to extend an `Article` Propel class:
+
+    {{{
+#!php
+<?php
+// lib/model/Article.php
+class Article
+{
+}
+
+sfPropelBehavior::add('Article', array('versionable'));
+   }}}
+
+   If the model uses a version column name diffeent than `version`, declare it here as the 'version' parameter of the behavior initialization:
+
+   {{{
+#!php
+sfPropelBehavior::add('Article', array('versionable' => array('columns' => array('version'  => 'my_version_column'))));
+  }}}
+
+  * Clear the cache
+
+    {{{
+#!sh
+> php symfony cc
+    }}}
+
+== Usage ==
+
+=== Reverting to a previous version ===
+
+{{{
+#!php
+<?php
+
+$article = new Article();
+$article->setTitle('First version of article');
+$article->save(); // $article->getVersion() == 1
+
+$article->setTitle('Second version of article');
+$article->save(); // $article->getVersion() == 2
+
+$article->toVersion(1); // $article->getTitle() == 'First version of article'
+$article->save(); // $article->getVersion() == 3
+}}}
+
+=== Conditional versioning ===
+
+You may not want to have a new version of resource created each time it is saved.
+
+Just add a `versionConditionMet()` method to your stub class. It is called each time object's `save()`.
+No version is created if it returns false.
+
+Example : 
+
+{{{
+#!php
+<?php
+
+// lib/model/Article.php
+
+public function versionConditionMet()
+{
+  return $this->getTitle() != 'do not version me';
+}
+}}}
+
+{{{
+#!php
+<?php
+
+$article = new Article();
+$article->setTitle('New article');
+$article->save(); // article is saved and a new version is created
+
+$article->setTitle('do not version me');
+$article->save(); // article is saved, no new version is created
+}}}
+
+It is possible to specify a different `versionConditionMet()` method name by defining it when registring behavior :
+
+{{{
+#!php
+<?php
+
+sfPropelBehavior::add('Article', array('versionable' => array('columns' => $columns_map, 'conditional' => 'myMethod')));
+}}}
+
+It is possible to change this method at runtime :
+
+{{{
+#!php
+<?php
+
+$previous_method = sfPropelVersionableBehavior::setVersionConditionMethod('myMethod');
+}}}
+
+Alternativley, you can choose to disable the automated creation of a new version at each save for all models by changing the application configuration:
+
+{{{
+# config/app.yml
+all:
+  sfPropelVersionableBehaviorPlugin:
+    auto_versioning: false
+}}}
+
+In this case, you still have the way to manually create a new version of an object:
+
+{{{
+#!php
+<?php
+
+$article->setTitle('Please version me even though auto_versioning is false');
+$article->addVersion();
+$article->save(); // article is saved and a new version is created
+}}}
+
+=== Customizing the behavior ===
+
+During initialization, you can define the name of the 'version' column if different from 'version:
+
+{{{
+#!php
+sfPropelBehavior::add('Article', array('versionable' => array('columns' => array(
+  'version'  => 'my_version_column'
+))));
+}}}
+
+If your model contains a 'title' column, the behavior will automatically copy it for reference into its internal `ResourceVersion` objects. But you can specify that the revision object title can come from another column:
+
+{{{
+#!php
+sfPropelBehavior::add('Article', array('versionable' => array('columns' => array(
+  'title'  => 'my_title_column'
+))));
+}}}
+
+=== Giving details about each revision ===
+
+For future reference, you probably need to record who edited an object, as well as when and why. While editing your object, you can define an author name and a comment via the `setVersionCreatedBy()` and `setVersionComment()` methods, as follows:
+
+{{{
+#!php
+<?php
+
+$article = new Article();
+$article->setTitle('Original title');
+$article->setVersionCreatedBy('John Doe');
+$article->setVersionComment('Article creation');
+$article->save();
+
+$article->setTitle('A much better title');
+$article->setVersionCreatedBy('John Doe');
+$article->setVersionComment('I didn\'t like the previous title so much');
+$article->save();
+}}}
+
+=== Retrieving a resource version history ===
+
+Details about each revision are available in the object via the `getVersionCreatedBy` and `getVersionComment` methods. For instance, if you want to display a history of modifications, you can do as follows:
+
+{{{
+#!php
+<?php
+
+foreach ($article->getAllVersions() as $history_article)
+{
+  echo sprintf("'%s', Version %d, updated by %s on %s (%s)\n", 
+               $history_article->getTitle(),
+               $history_article->getVersion(),
+               $history_article->getVersionCreatedBy(),
+               $history_article->getVersionCreatedAt(),
+               $history_article->getVersionComment(),
+               );
+}
+
+/* 
+ * Outputs:
+ *
+ * 'Original title', Version 1, updated by John Doe on 2008-02-08 09:25:12 (Article Creation)
+ * 'A much better title', Version 2, updated by John Doe on 2008-02-08 09:25:15 (I didn't like the previous title so much)
+ */
+}}}
+
+Note: In the above example, the `getAllVersions()` method hydrates a list of `Article` objects while all you need is information about the revisions alone. A lighter way to do the same thing would consist of manipulating the `ResourceVersion` objects that you can get via `getAllResourceVersions()`:
+
+{{{
+#!php
+<?php
+
+foreach ($article->getAllResourceVersions() as $resourceVersion)
+{
+   echo sprintf("'%s', Version %d, updated by %s on %s (%s)\n", 
+                $resourceVersion->getTitle(),
+                $resourceVersion->getNumber(),
+                $resourceVersion->getCreatedBy(),
+                $resourceVersion->getCreatedAt(),
+                $resourceVersion->getComment(),
+                );
+}
+}}}
+
+Tip: If you have `auto_versioning` set to off and use the manual `addVersion()` process, you can pass the author of the revision and the comment as parameters to the method call, as follows:
+
+{{{
+#!php
+<?php
+
+$article = new Article();
+$article->setTitle('Original title');
+$article->addVersion('John Doe', 'Article creation');
+$article->save();
+}}}
+
+=== Versioning Related objects ===
+
+You can specify that you want related objects to be versioned together with the main object. For instance, imagine an `Article` model with a many-to-one relationship to a `Category` model:
+
+{{{
+#!php
+// Explicitly ask to include the `Category` object in the versioning process
+sfPropelBehavior::add('Article', array('versionable' => array(
+  'with'   => array('Category')
+)));
+
+$article = new Article();
+$article->setTitle('Original title');
+$category = new Category();
+$category->setName('Category1');
+$article->setCategory($category);
+$article->save();
+
+$article->setTitle('Modified title');
+$category = new Category();
+$category->setName('Category1');
+$article->setCategory($category);
+$article->save();
+
+$article->toVersion(1);
+echo $article->getCategory()->getName();    // 'Category1'
+$article->toVersion(2);
+echo $article->getCategory()->getName();    // 'Category2'
+}}}
+
+You can choose to include different related objects if you use the `addVersion()` method. Specify which objects to include in the versioning process in an array, and use that array as a third argument of `addVersion()`. For instance, if you didn't add any `with` parameter during the behavior declaration, you can still save the related `Category` objects in the example above by calling, before each `save()`:
+
+{{{
+#!php
+...
+$article->addVersion('author1', 'comment1', array('Category'));
+$article->save();
+...
+$article->addVersion('author2', 'comment2', array('Category'));
+$article->save();
+}}}
+
+The same works for one-to-many relationhips, with a trick. For instance, if the `Article` model can have many `Comments`:
+
+{{{
+#!php
+<?php
+// Explicitly ask to include the `Comment` objects in the versioning process
+// Note that `Comment` is declared as a plural
+sfPropelBehavior::add('Article', array('versionable' => array(
+  'with'   => array('Comments')
+)));
+
+$article = new Article();
+$article->setTitle('Original title');
+$comment1 = new Comment();
+$comment1->setContent('Comment1');
+$article->addComment($comment1);
+$comment2 = new Comment();
+$comment2->setContent('Comment2');
+$article->addComment($comment2);
+$article->save();
+
+$article->setTitle('Modified title');
+$comment1->setContent('Comment1 Modified');
+$comment1->save();
+$comment2->setContent('Comment2 Modified');
+$comment2->save();
+$article->save();
+
+$comments = $article->toVersion(1)->getComments();
+echo $comments[0]->getContent();    // 'Comment1'
+echo $comments[1]->getContent();    // 'Comment2'
+$comments = $article->toVersion(2)->getComments();
+echo $comments[0]->getContent();    // 'Comment1 Modified'
+echo $comments[1]->getContent();    // 'Comment2 Modified'
+}}}
+
+Note: For the one-to-many versioning to work, you need to override the base object `initXXX()` method. In the above example, you must override the `Article::initComments()` method from:
+
+{{{
+// in BaseArticle.php
+public function initComments()
+{
+  if ($this->collComments === null) {
+    $this->collComments = array();
+  }
+}
+}}}
+
+to:
+
+{{{
+// in Article.php
+public function initComments($force = false)
+{
+  if ($this->collComments === null || $force) {
+    $this->collComments = array();
+  }
+}
+}}}
+
+This modification should not affect the rest of your model.
+
+Alternatively, if you prefer to let the Propel generator modify your `initXXX()` methods automatically for all models, you just need to change one line in your `propel.ini` and rebuild your model:
+
+{{{
+propel.builder.object.class = plugins.sfPropelVersionableBehaviorPlugin.lib.SfVersionableObjectBuilder
+}}}
+
+Note: If you use the [http://trac.symfony-project.com/wiki/sfPropelAlternativeSchemaPlugin sfPropelAlternativeSchemaPlugin] plugin, you don't need to change the Propel object builder, since the alternative schema's builder includes this modification.
+
+== Public API ==
+
+=== Object API ===
+
+Enabling the behaviors adds / modifies the following method to the Propel objects :
+
+ * `void save()`: Adds a new version to the object version history and increments the `version` property
+ * `void delete()`: Deletes the object version history
+ * `void toVersion(integer $version_number)`: Populates the properties of the current object with values from the requested version. Beware that saving the object afterwards will create a new version (and not update the previous version).
+ * `boolean isLastVersion()`: Returns true if the current object is the last available version
+ * `array getAllVersions()`: Returns all versions of the object in an ordered array
+ * `void addVersion(string $updatedBy, string $comment, array $withObjects)`: Increments the object's version number (without saving it) and creates a new ResourceVersion record. To be used when versionConditionMet() is false
+ * `ResourceVersion getLastResourceVersion()`: Returns the object's last version object
+ * `ResourceVersion getCurrentResourceVersion()`: Returns the object's current version object
+ * `ResourceVersion getResourceVersion(integer $version_number)`: Returns the object's numbered version object
+ * `array getAllResourceVersions()`: Returns all version objects in an array
+ * `void setResourceCreatedBy(string $createdBy)`: Defines the author name for the revision
+ * `string getResourceCreatedBy()`: Gets the author name for the revision
+ * `mixed getResourceCreatedAt()`: Gets the creation date for the revision (but you'd better have an `updated_at` column in your model)
+ * `void setResourceComment(string $comment)`: Defines the comment for the revision
+ * `string getResourceComment()`: Gets the comment for the revision
+
+
+=== !ResourceVersion API ===
+
+ * `BaseObject getResourceInstance()`: Returns resource instance populated with attributes from the revision
+ * `int getNumber()`: Returns the version number of the object revision
+ * `string getCreatedBy()`: Returns the author of the object revision
+ * `string getTitle()`: Returns the title of the object revision
+ * `string getComment()`: Returns the comment of the object revision
+ * `mixed getCreatedAt(string $format)`: Returns the date of the object revision
+
+=== sfPropelVersionableBehavior API ===
+
+ * (static) `string setVersionConditionMethod(string $method_name)`: Sets object method used to decide if a new version should be created
+ * (static) `string getVersionConditionMethod()`: Returns version condition method name
+
+== Roadmap ==
+
+=== 0.5 ===
+
+ * Make plugin compatible with sfPropel's i18n capabilities
+ * Change the calls to `getPrimaryKey` by calls to a [wiki:sfPropelActAsRatableBehaviorPlugin]-style `getReferenceKey` to allow extending objects with multiple primary keys.
+
+== Changelog ==
+
+=== 2008-04-05 | Trunk ===
+
+=== 2008-04-05 | 0.4.0 beta ===
+
+ * francois: Made incremental storage rely on a real version comparison, rather than the array of modified columns. Fixes modified columns not being saved when using `toVersion`.
+ * francois: Added the ability to declare related objects to save at behavior declaration
+ * francois: Fixed `ResourceVersion::getResourceInstance()` creates new objects and saving these objects creates a new row in the resource table (#3229)
+ * francois: Added `isLastVersion()` method
+ * francois: Avoid saving unchanged records to save database space (refs #3150)
+ * francois: Added `ResourceAttributeVersion::getResourceVersions()` method
+ * francois: Added `ResourceVersion::getResourceAttributeVersions()` method
+ * francois: Avoid saving unchanged columns to save database space
+ * francois: [BC Break] Added a `resource_attribute_version_hash` table, now middle table between versions and attributes
+ 
+=== 2008-03-21 | 0.3.0 beta ===
+
+ * francois: [BC Break] Added a `title` column to the `resource_version` table and support for resource title
+ * francois: Added support for related objects versioning (only via `addVersion` for now)
+ * francois: [BC Break] Added a `resource_version_id` column to the `resource_version` table
+ * francois: Fixed error when using 'addVersion' on a new object (primary and foreign keys were not saved)
+ * francois: Added `getCurrentResourceVersion`, `setResourceCreatedBy`, `getResourceCreatedBy`, `setResourceComment` and `getResourceComment` methods to the public API
+ * francois: Fixed error when trying to add a version to an unsaved object
+ * francois: Fixed error when using a version column different than 'version'
+ * francois: [BC Break] Added `comment`, `created_by` and `created_at` columns to the `ResourceVersion` class.
+ * francois: Added `addVersion` method and refactored the behavior to keep D.R.Y.
+ * francois: More explicit documentation on installation
+ * francois: Added a few unit tests
+ * francois: Added a `getAllVersions` method returning an array of origin objects in a single query
+ * francois: [BC Break] Renamed `getAllVersions` to `getAllResourceVersions`
+ * francois: [BC Break] Renamed `getLastVersions` to `getLastResourceVersion`
+ * francois: [BC Break] Replaced uuid by a simple composite key class name + id
+
+=== 2008-02-08 | 0.2.3 alpha ===
+
+ * francois: Fixed error when using a version column different than 'version'
+
+=== 2008-02-06 | 0.2.2 alpha ===
+
+ * francois: Made the doc more explicit about multiple models (fixes #1820)
+ * francois: Removed need for hardcoded foreign key (fixes #1562)
+ * francois: Switched plugin schema to YAML
+ * francois: Made the unit tests more adaptable
+
+=== 2007-16-03 | 0.2.1 alpha ===
+
+ * #1563 : does not create a version if YourClass::versionConditionMet() is not found (madman)
+ * #1564 : crashes while creating a new version if no prior version exists (madman)
+ * Syntax highlighting in README
+ * added `sfPropelVersionableBehavior::getVersionConditionMethod()` and `sfPropelVersionableBehavior::setVersionConditionMethod()` methods
+ * enhanced inner management of conditional versioning
+ * updated unit tests and docs accordingly
+
+=== 2007-02-17 | 0.2.0 alpha ===
+
+ * made version number management more reliable
+ * new `getLastVersion()` method
+ * implemented conditional versioning
+ * updated docs and unit tests accordingly
+
+=== 2007-02-17 | 0.1.0 alpha ===
+
+Initial public release.

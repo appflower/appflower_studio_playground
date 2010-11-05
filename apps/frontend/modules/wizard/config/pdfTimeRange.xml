@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<i:view xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://www.appflower.com /schema/appflower.xsd"
+xmlns:i="http://www.appflower.com/schema/" type="edit">
+
+  <i:title>Report Wizard</i:title>
+
+	<i:datasource type="orm">
+		<i:class>PdfReportsPeer</i:class>
+		<i:method name="retrieveByPk">
+			<i:param name="id">{id}</i:param>
+		</i:method>
+	</i:datasource>
+
+  <i:fields>
+  
+    <i:field name="extraction_from" type="datetime" state="editable" style="" label="Extraction range (from)">
+       <i:value type="orm">
+			<i:source name="getFrom" />
+		</i:value>
+	  <i:comment>Extraction starts from this date (inclusive).</i:comment>
+	  <i:validator name="immValidatorDateRange">
+		<i:param name="other">extraction_to</i:param>
+		<i:param name="op">LTE</i:param>
+	  </i:validator>
+    </i:field>
+
+    <i:field name="extraction_to" type="datetime" state="editable" style="" label="Extraction range (to)">
+       <i:value type="orm">
+			<i:source name="getTo" />
+		</i:value>
+	  <i:comment>Extraction ends at this date (inclusive).</i:comment>
+      <i:validator name="immValidatorRequired" />
+    </i:field>
+
+  </i:fields>
+  
+  <i:grouping>
+    <i:set title="Settings">
+      <i:ref to="extraction_from" />
+      <i:ref to="extraction_to" />
+    </i:set>
+
+  </i:grouping>
+</i:view>
+

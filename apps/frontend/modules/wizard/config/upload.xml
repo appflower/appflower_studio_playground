@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<i:view xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://www.appflower.com /schema/appflower.xsd"
+xmlns:i="http://www.appflower.com/schema/" type="edit">
+
+  <i:title>Upload a file</i:title>
+  
+   <i:fields url="wizard/install5" multipart="true">
+  	<i:field name="file" type="file" label="Upload a file" />
+  </i:fields>
+
+  <i:grouping>
+    <i:set title="Settings">
+      <i:ref to="file" />
+    </i:set>
+
+  </i:grouping>
+</i:view>
+

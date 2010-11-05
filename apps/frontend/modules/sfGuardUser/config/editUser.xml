@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+	<i:view xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:schemaLocation="http://www.appflower.com /schema/appflower.xsd"
+    xmlns:i="http://www.appflower.com/schema/" type="edit">
+	
+	<i:title>Edit User</i:title>
+		<i:datasource type="orm">
+			<i:class>sfGuardUserPeer</i:class>
+			<i:method name="retrieveByPk">
+				<i:param name="id">{id}</i:param>
+			</i:method>
+		</i:datasource>
+		
+		<i:fields>
+			<i:field name="id" type="hidden">
+				<i:value type="orm">
+					<i:source name="getId" />
+				</i:value>
+			</i:field>
+			
+			<i:field name="is_active" label="Is Active" type="checkbox" state="editable" style="css" checked="{checked}">
+				<i:value type="orm">
+					<i:source name="getIsActive" />
+				</i:value>
+				
+				<i:help>User satus</i:help>
+				<i:comment>Current status of user</i:comment>
+			</i:field>
+			
+			<i:field name="first_name" label="Firstname*" type="input" state="editable" style="css">
+				<i:value type="orm">
+					<i:source name="getFirstName" />
+				</i:value>
+				
+				<i:help>First name of the user.</i:help>
+				<i:comment>First Name</i:comment>
+				
+				<i:validator name="immValidatorName" />
+			</i:field>
+			
+			<i:field name="last_name" label="Lastname*" type="input" state="editable" style="css">
+				<i:value type="orm">
+					<i:source name="getLastName" />
+				</i:value>
+				
+				<i:help>Last name of the user</i:help>
+				<i:comment>Last Name</i:comment>
+				<i:validator name="immValidatorName" />
+			</i:field>
+			
+			<i:field name="username" label="Username (your email)*" type="input" state="editable" style="css">
+				<i:value type="orm">
+					<i:source name="getUsername" />
+				</i:value>
+				
+				<i:help>Only valid e-mail address is accepted</i:help>
+				<i:comment>Input valid email as username</i:comment>	
+				<i:validator name="immValidatorUnique">
+				    <i:param name="class">sfGuardUser</i:param>
+					<i:param name="column">username</i:param>
+					<i:param name="unique_error">User with the username "%value%" already exists. Please choose another one.</i:param>
+				</i:validator>
+				<i:validator name="sfValidatorEmail">
+					<i:param name="invalid_error">Only valid email address is accepted.</i:param>
+				</i:validator>
+			</i:field>
+			
+			<i:field name="guard_password" label="Password*" type="password" state="editable" style="css">
+				<i:help>Password</i:help>
+				<i:comment>Password</i:comment>
+			</i:field>
+			
+			<i:field name="timezone_id" label="Time Zone" type="combo"  state="editable" selected="{zone}" style="css" >
+				<i:value type="orm">					
+					<i:class>TimeZonesPeer</i:class>
+					<i:method name="getAll">
+					</i:method> 
+  				</i:value>
+  				<i:help>Time zone</i:help> 
+  				<i:comment>Time zone</i:comment>				
+				<i:validator name="immValidatorRequired" />
+  			</i:field>
+  			  			
+  			<i:field name="associated_sf_guard_group" label="Role" type="doublemulticombo" state="editable" style="css">
+				<i:value type="orm">					
+					<i:class>sfGuardUserGroupPeer</i:class>
+					<i:method name="getAll">
+						<i:param name="uid">{id}</i:param>
+					</i:method> 
+  				</i:value>
+  				<i:help>Group permissions</i:help> 
+
+  				<i:validator name="immValidatorRequired" />
+  			</i:field>  			
+		</i:fields>
+		
+		<i:actions>
+		    <i:action name="list" url="sfGuardUser/listUser" />
+		</i:actions>
+		
+		<i:description>
+    		<![CDATA[You can add a new user or edit an existing one from this widget. The user timezone and user permission can also be assigned or edited from this page in addition to basic info like username, password and the user details. ]]>
+		</i:description>
+		
+		<i:grouping>
+		    <i:set title="Login Information">
+		    	<i:ref to="id" />
+		        <i:ref to="username" />
+		        <i:ref to="guard_password" />
+			<i:ref to="is_active" />
+		     </i:set>
+		     
+		     <i:set title="User Profile" tabtitle="Profile">
+				<i:ref to="first_name" />
+				<i:ref to="last_name" />
+				<i:ref to="timezone_id" />
+			</i:set>
+			
+			<i:set title="User Permissions" tabtitle="Permissions">
+				<i:ref to="associated_sf_guard_group" />
+			</i:set>
+		 </i:grouping>
+	</i:view>

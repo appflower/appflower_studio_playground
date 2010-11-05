@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<i:view xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://www.appflower.com /schema/appflower.xsd"
+xmlns:i="http://www.appflower.com/schema/" type="wizard">	
+	
+	<i:title>Page Not Found</i:title>
+	
+	<i:area type="content">
+		<i:component name="header" module="wizard" />
+	</i:area>
+	
+	<i:actions>
+		<i:action name="Next" icon="/images/famfamfam/accept.png" url="wizard/nadeSignature2?id=new&amp;" />
+		<i:action name="Cancel" icon="/images/famfamfam/cancel.png" url="nade/listNadeSignature" />
+	</i:actions>
+	
+</i:view>

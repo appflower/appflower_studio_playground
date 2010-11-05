@@ -1,0 +1,40 @@
+# default rules
+homepage:
+  url:   /
+  param: { module: appFlowerStudio, action: studio }
+  
+##############################################################################
+#--[ User Management ]------------------------------------------------------ #
+##############################################################################  
+login:
+  url:   /login
+  param: { module: sfGuardAuth, action: signin }
+
+logout:
+  url:   /logout
+  param: { module: sfGuardAuth, action: signout }
+
+my_profile:
+  url:   /user/myprofile
+  param: { module: sfGuardUserProfile, action: edit }
+  
+sf_guard_signin:
+  url: /login
+  param: { module: sfGuardAuth, action: signin }
+
+sf_guard_signout:
+  url: /logout
+  param: { module: sfGuardAuth, action: signout }
+
+sf_guard_password:
+  url: /forgot-password
+  param: { module: sfGuardAuth, action: passwordRequest }  
+  
+
+  
+default_index:
+  url:   /:module
+  param: { action: index }
+
+default:
+  url:   /:module/:action/*

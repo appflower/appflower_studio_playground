@@ -1,0 +1,17 @@
+default:
+  http_metas:
+    content-type: text/html
+
+  metas:
+    title:        appFlower Studio
+    description:  appFlower Studio
+    keywords:     appFlower Studio, symfony
+    language:     en
+    #robots:       index, follow
+
+  stylesheets:    [main.css]
+
+  javascripts:    []
+
+  has_layout:     on
+  layout:         layout

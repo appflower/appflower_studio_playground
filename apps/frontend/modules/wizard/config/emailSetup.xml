@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<i:view xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://www.appflower.com /schema/appflower.xsd"
+xmlns:i="http://www.appflower.com/schema/" type="edit">
+
+  <i:title>Email Settings</i:title>
+
+  <i:fields url="wizard/install5">
+  
+     <i:field name="smtp_relay" type="input" state="editable" style="" label="SMTP Relay">
+		<i:comment>Relay is used to redirect all emails through a mail server, instead of using default mail routing</i:comment>
+    </i:field>
+
+  </i:fields>
+  
+  <i:grouping>
+    <i:set title="Settings">
+      <i:ref to="smtp_relay" />
+    </i:set>
+
+  </i:grouping>
+</i:view>
+

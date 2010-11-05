@@ -1,0 +1,44 @@
+/* Nice Tables/Tickets */
+table.options { border-collapse:collapse; border-spacing:0pt; clear:both; margin-bottom:0.1em; width:100%; background-color:#DBDBDB; border-bottom-color:#FFFFFF; border-bottom-style:solid; border-bottom-width:2px; border-top-color:#D4D4D4; border-top-style:solid; border-top-width:2px; }
+table.options thead th { font-size: 11px; font-weight:normal; padding:2px 0.5em; text-align:right; color: #333333; }
+table.listing { line-height: 12px; border-bottom:1px solid #D7D7D7; border-collapse:collapse; border-spacing:0pt; clear:both; margin-top:0em; width:100%; }
+table.listing th { font-size:0.9em; padding:0pt 1em 0.1em 0pt; text-align:left; }
+table.listing thead { background:#F7F7F0 none repeat scroll 0%; }
+table.listing thead th { border-color:#D7D7D7 rgb(215, 215, 215) rgb(153, 153, 153); border-style:solid; border-width:1px; font-weight:bold; padding:2px 0.5em; vertical-align:bottom; }
+table.listing thead th *:link:hover, table.listing thead th *:visited:hover { background-color:transparent; }
+table.listing thead th a { border:medium none; padding-right:12px; }
+table.listing th.asc a, table.listing th.desc a { font-weight:bold; }
+table.listing th.asc a, table.listing th.desc a { background-position:100% 50%; background-repeat:no-repeat; }
+table.listing th.asc a { background-image:url(../asc.png); }
+table.listing th.desc a { background-image:url(../desc.png); }
+table.listing tbody td, table.listing tbody th { border:1px dotted #DDDDDD; padding:0.33em 0.5em; vertical-align:top; }
+table.listing tbody td a:hover, table.listing tbody th a:hover { background-color:transparent; }
+table.listing tbody tr { border-top:1px solid #DDDDDD; }
+table.listing tbody tr.even { background-color:#FCFCFC; }
+table.listing tbody tr.odd { background-color:#F7F7F7; }
+table.listing tbody tr:hover { background:#F1F7E0 none repeat scroll 0%; }
+table.listing tfoot { background:#F7F7F0 none repeat scroll 0%; }
+table.listing tfoot th { border-color:#D7D7D7 rgb(215, 215, 215) rgb(153, 153, 153); border-style:solid; border-width:1px; font-weight:bold; padding:2px 0.5em; vertical-align:bottom; }
+table.listing tfoot th *:link:hover, table.listing thead th *:visited:hover { background-color:transparent; }
+
+
+.tickets tr.color1-odd { background:#FFDDCC none repeat scroll 0%; border-color:#EE8888; color:#AA2222; }
+.tickets tr.color1-even { background:#FFEEDD none repeat scroll 0%; border-color:#EE9999; color:#AA2222; }
+.tickets tr.color2-odd { background:#FFFFBB none repeat scroll 0%; border-color:#EEEEAA; color:#888800; }
+.tickets tr.color2-even { background:#FFFFDD none repeat scroll 0%; border-color:#DDDD88; color:#888800; }
+.tickets tr.color3-odd { background:#FBFBFB none repeat scroll 0%; border-color:#DDDDDD; color:#444444; }
+.tickets tr.color3-even { background:#F6F6F6 none repeat scroll 0%; border-color:#CCCCCC; color:#333333; }
+.tickets tr.color4-odd { background:#E7FFFF none repeat scroll 0%; border-color:#CCEEEE; color:#009999; }
+.tickets tr.color4-even { background:#DDFFFF none repeat scroll 0%; border-color:#BBEEEE; color:#009999; }
+.tickets tr.color5-odd { background:#E7EEFF none repeat scroll 0%; border-color:#CCDDEE; color:#446699; }
+.tickets tr.color5-even { background:#DDE7FF none repeat scroll 0%; border-color:#CCDDEE; color:#446699; }
+.tickets tr.color6-odd { background:#F0F0F0 none repeat scroll 0%; border-color:#DDDDDD; color:#888888; }
+.tickets tr.color6-even { background:#F7F7F7 none repeat scroll 0%; border-color:#DDDDDD; color:#888888;}
+.tickets tr.color6-odd a, .color6-even a { color:#BB6666; }
+
+table.progress { border:1px solid #D7D7D7; border-collapse:collapse; border-spacing:0pt; empty-cells:show; float:left; margin:0pt; padding:0pt; }
+table.progress a, table.progress *:link, table.progress *:visited, table.progress *:link:hover, table.progress *:visited:hover { border:medium none; display:block; height:1.2em; margin:0pt; padding:0pt; text-decoration:none; width:100%; }
+table.progress td { background:#FFFFFF none repeat scroll 0%; padding:0pt; }
+table.progress td.closed { background:#BAE0BA none repeat scroll 0%; }
+table.progress td *:hover { background:transparent none repeat scroll 0%; }
+.progress { margin:1em 1em 0pt; max-width:70%; width:40em; }
