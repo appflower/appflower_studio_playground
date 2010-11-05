@@ -1,5 +1,0 @@
-all:
-  is_secure: on
-  
-errors:
-  is_secure: off
