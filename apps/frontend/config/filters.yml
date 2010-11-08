@@ -1,5 +1,5 @@
 rendering: ~
-security:  ~
+security: ~
 
 csrf:
  class: sfCSRFFilter
@@ -7,10 +7,8 @@ csrf:
    secret: 1cf56bd447817ac5e951dd37cb1e31fe   
    
 cache:     ~
-common:    ~
-
-extjs_layout: 
-  class: ImmExtJsLayoutFilter
+common:
+  class: sfCommonFilter
 
 parser_validation: 
   class: XmlParserValidationFilter

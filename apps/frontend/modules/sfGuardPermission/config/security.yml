@@ -1,15 +1,15 @@
 all:
-  is_secure:   on
+  is_secure:   true
 
 list:
-  is_secure:   on
+  is_secure:   true
   credentials: [[permission_view,permission_edit]]
     
 delete:
-  is_secure:   on
+  is_secure:   true
   credentials: permission_edit
     
 edit:
-  is_secure:   on
+  is_secure:   true
   credentials: permission_edit
   

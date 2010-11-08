@@ -1,39 +1,39 @@
 prod:
   .settings:
-    logging_enabled: on
+    logging_enabled: true
     error_reporting:        <?php echo (E_ALL | E_STRICT)."\n" ?>
-    web_debug:              on
-    no_script_name:         on
+    web_debug:              true
+    no_script_name:         true
 
 dev:
   .settings:
     # E_ALL | E_STRICT = 4095
     error_reporting:        <?php echo (E_ALL | E_STRICT)."\n" ?>
-    web_debug:              on
-    cache:                  off
-    no_script_name:         off
-    etag:                   off
-    use_process_cache:      off        # Enable symfony optimizations based on PHP accelerators. 
+    web_debug:              true
+    cache:                  false
+    no_script_name:         false
+    etag:                   false
+    use_process_cache:      false        # Enable symfony optimizations based on PHP accelerators. 
 
 stg:
   .settings:
     # E_ALL | E_STRICT = 4095
     error_reporting:        <?php echo (E_ALL | E_STRICT)."\n" ?>
-    web_debug:              on
-    cache:                  on
-    no_script_name:         off
-    etag:                   off
-    use_process_cache:      off        # Enable symfony optimizations based on PHP accelerators. 
+    web_debug:              true
+    cache:                  true
+    no_script_name:         false
+    etag:                   false
+    use_process_cache:      false        # Enable symfony optimizations based on PHP accelerators. 
 
 test:
   .settings:
     # E_ALL | E_STRICT & ~E_NOTICE = 2047
     error_reporting:        <?php echo ((E_ALL | E_STRICT) ^ E_NOTICE)."\n" ?>
-    cache:                  off
-    web_debug:              off
-    no_script_name:         off
-    etag:                   off
-    use_process_cache:      off        # Enable symfony optimizations based on PHP accelerators. 
+    cache:                  false
+    web_debug:              false
+    no_script_name:         false
+    etag:                   false
+    use_process_cache:      false        # Enable symfony optimizations based on PHP accelerators. 
 
 all:
   .actions:
@@ -59,23 +59,23 @@ all:
     enabled_modules: [test, default, sfGuardGroup, sfGuardUser, sfGuardPermission, sfGuardAuth, sfPropelActAsSluggableBehavior, immAmChart, immGeneratorTask, appFlower, parser, sfCombine, appFlowerStudio ]
 
     # Optional features. Deactivating unused features boots performance a bit.
-    use_database:           on        # Enable database manager. Set to off if you don't use a database.
-    use_security:           on        # Enable security features (login and credentials). Set to off for public applications.
-    use_flash:              on        # Enable flash parameter feature. Set to off if you never use the set_flash() method in actions.
-    i18n:                   off       # Enable interface translation. Set to off if your application should not be translated.
-    check_symfony_version:  off       # Enable check of symfony version for every request. 
+    use_database:           true        # Enable database manager. Set to off if you don't use a database.
+    use_security:           true        # Enable security features (login and credentials). Set to off for public applications.
+    use_flash:              true        # Enable flash parameter feature. Set to off if you never use the set_flash() method in actions.
+    i18n:                   false       # Enable interface translation. Set to off if your application should not be translated.
+    check_symfony_version:  false       # Enable check of symfony version for every request. 
 
-    use_process_cache:      on        # Enable symfony optimizations based on PHP accelerators. 
-    compressed:             off        # Enable PHP response compression. Set to on to compress the outgoing HTML via the PHP handler.
-    check_lock:             off       # Enable the application lock system triggered by the clear-cache and disable tasks. Set to on to have all requests to disabled applications redirected to the $sf_symfony_data_dir/web/arrors/unavailable.php page.
+    use_process_cache:      true        # Enable symfony optimizations based on PHP accelerators. 
+    compressed:             false        # Enable PHP response compression. Set to on to compress the outgoing HTML via the PHP handler.
+    check_lock:             false       # Enable the application lock system triggered by the clear-cache and disable tasks. Set to on to have all requests to disabled applications redirected to the $sf_symfony_data_dir/web/arrors/unavailable.php page.
 
     # Output escaping settings
-    escaping_strategy:      on        # Determines how variables are made available to templates. Accepted values: bc, both, on, off. The value off deactivates escaping completely and gives a slight boost.
+    escaping_strategy:      true        # Determines how variables are made available to templates. Accepted values: bc, both, on, off. The value off deactivates escaping completely and gives a slight boost.
     escaping_method:   ESC_ENTITIES   # Function or helper used for escaping. Accepted values: ESC_RAW, ESC_ENTITIES, ESC_JS, ESC_JS_NO_ENTITIES.
 
 #    # Routing settings
 #    suffix:                 .         # Default suffix for generated URLs. If set to a single dot (.), no suffix is added. Possible values: .html, .php, and so on.
-#    no_script_name:         off       # Enable the front controller name in generated URLs
+#    no_script_name:         false       # Enable the front controller name in generated URLs
 #
 #    # Validation settings, used for error generation by the Validation helper
 #    validation_error_prefix:    ' &darr;&nbsp;'
@@ -84,11 +84,11 @@ all:
 #    validation_error_id_prefix: error_for_
 #
 #    # Cache settings
-#    cache:                  off       # Enable the template cache
-#    etag:                   on        # Enable etag handling
+#    cache:                  false       # Enable the template cache
+#    etag:                   true        # Enable etag handling
 #
 #    # Logging and debugging settings
-#    web_debug:              off       # Enable the web debug toolbar
+#    web_debug:              false       # Enable the web debug toolbar
 #    error_reporting:        341       # Determines which events are logged. The default value is E_PARSE | E_COMPILE_ERROR | E_ERROR | E_CORE_ERROR | E_USER_ERROR = 341
 #
 #    # Assets paths
@@ -107,7 +107,7 @@ all:
 #    charset:                utf-8
 #
 #    # Miscellaneous
-#    strip_comments:         on         # Remove comments in core framework classes as defined in the core_compile.yml
+#    strip_comments:         true         # Remove comments in core framework classes as defined in the core_compile.yml
 #    autoloading_functions:  ~          # Functions called when a class is requested and this it is not already loaded. Expects an array of callables. Used by the framework bridges.
     timeout:                28800       # Session timeout, in seconds
 #    max_forwards:           5

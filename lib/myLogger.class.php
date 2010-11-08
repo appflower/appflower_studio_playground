@@ -18,7 +18,7 @@ class myLogger {
 	 */
 	public static function logUpdateObject($old_object,$new_object,$url='',$user_commit_msg='',$userObj=false)
 	{
-		sfLoader::loadHelpers(array('Url'));
+		sfProjectConfiguration::getActive()->loadHelpers(array('Url'));
 		
 		$new_object_peer=$new_object->getPeer();
 		$new_object_name=get_class($new_object);
@@ -61,7 +61,7 @@ class myLogger {
 	 */
 	public static function logNewObject($new_object,$url='',$user_commit_msg='',$userObj=false)
 	{
-		sfLoader::loadHelpers(array('Url'));
+		sfProjectConfiguration::getActive()->loadHelpers(array('Url'));
 		
 		$new_object_peer=$new_object->getPeer();
 		$new_object_name=get_class($new_object);

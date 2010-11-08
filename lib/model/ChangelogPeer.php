@@ -97,7 +97,7 @@ class ChangelogPeer extends BaseChangelogPeer
 	
 	public static function showChanges($id) 
 	{
-		sfLoader::loadHelpers('Partial');
+		sfProjectConfiguration::getActive()->loadHelpers('Partial');
 		$changeLog = ChangelogPeer::retrieveByPk($id);
 		$changes = unserialize( $changeLog->getChanges() );
 		$body=get_partial('auditLog/viewChanges',array('changeLog'=>$changeLog, 'changes'=>$changes));
