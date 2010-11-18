@@ -35,7 +35,7 @@ CREATE TABLE `sf_guard_user_profile`
 		FOREIGN KEY (`timezones_id`)
 		REFERENCES `timezones` (`id`)
 		ON DELETE CASCADE
-)Type=InnoDB;
+) ENGINE=InnoDB;
 
 #-----------------------------------------------------------------------------
 #-- changelog
@@ -48,10 +48,10 @@ CREATE TABLE `changelog`
 (
 	`id` INTEGER  NOT NULL AUTO_INCREMENT,
 	`object_id` INTEGER default 0 NOT NULL,
-	`object_name` VARCHAR(255) default 'null' NOT NULL,
+	`object_name` VARCHAR(255)  NOT NULL,
 	`object_change_type` VARCHAR(2) default '0' NOT NULL,
 	`object_link` VARCHAR(255),
-	`module_name` VARCHAR(255) default 'null' NOT NULL,
+	`module_name` VARCHAR(255)  NOT NULL,
 	`changes` TEXT  NOT NULL,
 	`user_commit_msg` TEXT  NOT NULL,
 	`user_id` INTEGER default 0 NOT NULL,
@@ -62,7 +62,7 @@ CREATE TABLE `changelog`
 		FOREIGN KEY (`user_id`)
 		REFERENCES `sf_guard_user` (`id`)
 		ON DELETE CASCADE
-)Type=InnoDB;
+) ENGINE=InnoDB;
 
 #-----------------------------------------------------------------------------
 #-- timezones
@@ -80,7 +80,7 @@ CREATE TABLE `timezones`
 	`updated_at` DATETIME,
 	PRIMARY KEY (`id`),
 	KEY `timezones_I_1`(`name`)
-)Type=InnoDB;
+) ENGINE=InnoDB;
 
 # This restores the fkey checks, after having unset them earlier
 SET FOREIGN_KEY_CHECKS = 1;

@@ -28,7 +28,7 @@ CREATE TABLE `resource_version`
 		FOREIGN KEY (`resource_version_id`)
 		REFERENCES `resource_version` (`id`)
 		ON DELETE CASCADE
-)Type=InnoDB;
+) ENGINE=InnoDB;
 
 #-----------------------------------------------------------------------------
 #-- resource_attribute_version
@@ -43,7 +43,7 @@ CREATE TABLE `resource_attribute_version`
 	`attribute_name` VARCHAR(255)  NOT NULL,
 	`attribute_value` TEXT,
 	PRIMARY KEY (`id`)
-)Type=InnoDB;
+) ENGINE=InnoDB;
 
 #-----------------------------------------------------------------------------
 #-- resource_attribute_version_hash
@@ -67,7 +67,7 @@ CREATE TABLE `resource_attribute_version_hash`
 		FOREIGN KEY (`resource_version_id`)
 		REFERENCES `resource_version` (`id`)
 		ON DELETE CASCADE
-)Type=InnoDB;
+) ENGINE=InnoDB;
 
 # This restores the fkey checks, after having unset them earlier
 SET FOREIGN_KEY_CHECKS = 1;

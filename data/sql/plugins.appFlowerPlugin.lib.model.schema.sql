@@ -15,7 +15,7 @@ CREATE TABLE `sf_combine`
 	`assets_key` VARCHAR(32)  NOT NULL,
 	`files` TEXT  NOT NULL,
 	PRIMARY KEY (`assets_key`)
-)Type=InnoDB;
+) ENGINE=InnoDB;
 
 #-----------------------------------------------------------------------------
 #-- sf_combine_server
@@ -29,7 +29,7 @@ CREATE TABLE `sf_combine_server`
 	`id` INTEGER  NOT NULL AUTO_INCREMENT,
 	`online` TINYINT,
 	PRIMARY KEY (`id`)
-)Type=InnoDB;
+) ENGINE=InnoDB;
 
 #-----------------------------------------------------------------------------
 #-- af_portal_state
@@ -47,13 +47,8 @@ CREATE TABLE `af_portal_state`
 	`content` TEXT,
 	`created_at` DATETIME,
 	`updated_at` DATETIME,
-	PRIMARY KEY (`id`),
-	INDEX `af_portal_state_FI_1` (`user_id`),
-	CONSTRAINT `af_portal_state_FK_1`
-		FOREIGN KEY (`user_id`)
-		REFERENCES `sf_guard_user` (`id`)
-		ON DELETE CASCADE
-)Type=InnoDB;
+	PRIMARY KEY (`id`)
+) ENGINE=InnoDB;
 
 #-----------------------------------------------------------------------------
 #-- af_widget_setting
@@ -68,13 +63,8 @@ CREATE TABLE `af_widget_setting`
 	`name` VARCHAR(255),
 	`user` INTEGER,
 	`setting` TEXT,
-	PRIMARY KEY (`id`),
-	INDEX `af_widget_setting_FI_1` (`user`),
-	CONSTRAINT `af_widget_setting_FK_1`
-		FOREIGN KEY (`user`)
-		REFERENCES `sf_guard_user` (`id`)
-		ON DELETE CASCADE
-)Type=InnoDB;
+	PRIMARY KEY (`id`)
+) ENGINE=InnoDB;
 
 #-----------------------------------------------------------------------------
 #-- af_widget_selector
@@ -97,7 +87,7 @@ CREATE TABLE `af_widget_selector`
 		FOREIGN KEY (`category_id`)
 		REFERENCES `af_widget_category` (`id`)
 		ON DELETE CASCADE
-)Type=InnoDB;
+) ENGINE=InnoDB;
 
 #-----------------------------------------------------------------------------
 #-- af_widget_category
@@ -113,7 +103,7 @@ CREATE TABLE `af_widget_category`
 	`name` VARCHAR(255),
 	PRIMARY KEY (`id`),
 	KEY `af_widget_category_I_1`(`module`)
-)Type=InnoDB;
+) ENGINE=InnoDB;
 
 #-----------------------------------------------------------------------------
 #-- af_validator_cache
@@ -132,7 +122,7 @@ CREATE TABLE `af_validator_cache`
 	PRIMARY KEY (`id`),
 	KEY `af_validator_cache_I_1`(`signature`),
 	KEY `af_validator_cache_I_2`(`path`)
-)Type=InnoDB;
+) ENGINE=InnoDB;
 
 #-----------------------------------------------------------------------------
 #-- af_save_filter
@@ -149,71 +139,27 @@ CREATE TABLE `af_save_filter`
 	`path` VARCHAR(255),
 	`title` VARCHAR(255),
 	`filter` TEXT,
-	PRIMARY KEY (`id`),
-	INDEX `af_save_filter_FI_1` (`user`),
-	CONSTRAINT `af_save_filter_FK_1`
-		FOREIGN KEY (`user`)
-		REFERENCES `sf_guard_user` (`id`)
-		ON DELETE CASCADE
-)Type=InnoDB;
+	PRIMARY KEY (`id`)
+) ENGINE=InnoDB;
 
 #-----------------------------------------------------------------------------
-#-- af_notification
+#-- af_widget_help_settings
 #-----------------------------------------------------------------------------
 
-DROP TABLE IF EXISTS `af_notification`;
+DROP TABLE IF EXISTS `af_widget_help_settings`;
 
 
-CREATE TABLE `af_notification`
+CREATE TABLE `af_widget_help_settings`
 (
 	`id` INTEGER  NOT NULL AUTO_INCREMENT,
-	`title` VARCHAR(255),
-	`message` TEXT,
-	`log` TEXT,
-	`type` VARCHAR(255),
-	`duration` INTEGER,
-	`category` INTEGER,
-	`persistent` INTEGER,
-	`created_by` INTEGER,
-	`created_for` INTEGER,
-	`remote_ip` VARCHAR(255),
+	`user_id` INTEGER,
+	`widget_help_is_enabled` TINYINT default 1,
+	`popup_help_is_enabled` TINYINT default 1,
+	`help_type` TINYINT default 1,
 	`created_at` DATETIME,
-	PRIMARY KEY (`id`),
-	INDEX `af_notification_FI_1` (`created_by`),
-	CONSTRAINT `af_notification_FK_1`
-		FOREIGN KEY (`created_by`)
-		REFERENCES `sf_guard_user` (`id`),
-	INDEX `af_notification_FI_2` (`created_for`),
-	CONSTRAINT `af_notification_FK_2`
-		FOREIGN KEY (`created_for`)
-		REFERENCES `sf_guard_user` (`id`)
-)Type=InnoDB;
-
-#-----------------------------------------------------------------------------
-#-- af_notified_for
-#-----------------------------------------------------------------------------
-
-DROP TABLE IF EXISTS `af_notified_for`;
-
-
-CREATE TABLE `af_notified_for`
-(
-	`id` INTEGER  NOT NULL AUTO_INCREMENT,
-	`user` INTEGER,
-	`notification_id` INTEGER,
-	`created_at` DATETIME,
-	PRIMARY KEY (`id`),
-	INDEX `af_notified_for_FI_1` (`user`),
-	CONSTRAINT `af_notified_for_FK_1`
-		FOREIGN KEY (`user`)
-		REFERENCES `sf_guard_user` (`id`)
-		ON DELETE CASCADE,
-	INDEX `af_notified_for_FI_2` (`notification_id`),
-	CONSTRAINT `af_notified_for_FK_2`
-		FOREIGN KEY (`notification_id`)
-		REFERENCES `af_notification` (`id`)
-		ON DELETE CASCADE
-)Type=InnoDB;
+	`updated_at` DATETIME,
+	PRIMARY KEY (`id`)
+) ENGINE=InnoDB;
 
 # This restores the fkey checks, after having unset them earlier
 SET FOREIGN_KEY_CHECKS = 1;

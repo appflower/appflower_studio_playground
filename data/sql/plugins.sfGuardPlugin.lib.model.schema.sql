@@ -17,7 +17,7 @@ CREATE TABLE `sf_guard_group`
 	`description` TEXT,
 	PRIMARY KEY (`id`),
 	UNIQUE KEY `sf_guard_group_U_1` (`name`)
-)Type=InnoDB;
+) ENGINE=InnoDB;
 
 #-----------------------------------------------------------------------------
 #-- sf_guard_permission
@@ -33,7 +33,7 @@ CREATE TABLE `sf_guard_permission`
 	`description` TEXT,
 	PRIMARY KEY (`id`),
 	UNIQUE KEY `sf_guard_permission_U_1` (`name`)
-)Type=InnoDB;
+) ENGINE=InnoDB;
 
 #-----------------------------------------------------------------------------
 #-- sf_guard_group_permission
@@ -56,7 +56,7 @@ CREATE TABLE `sf_guard_group_permission`
 		FOREIGN KEY (`permission_id`)
 		REFERENCES `sf_guard_permission` (`id`)
 		ON DELETE CASCADE
-)Type=InnoDB;
+) ENGINE=InnoDB;
 
 #-----------------------------------------------------------------------------
 #-- sf_guard_user
@@ -78,7 +78,7 @@ CREATE TABLE `sf_guard_user`
 	`is_super_admin` TINYINT default 0 NOT NULL,
 	PRIMARY KEY (`id`),
 	UNIQUE KEY `sf_guard_user_U_1` (`username`)
-)Type=InnoDB;
+) ENGINE=InnoDB;
 
 #-----------------------------------------------------------------------------
 #-- sf_guard_user_permission
@@ -101,7 +101,7 @@ CREATE TABLE `sf_guard_user_permission`
 		FOREIGN KEY (`permission_id`)
 		REFERENCES `sf_guard_permission` (`id`)
 		ON DELETE CASCADE
-)Type=InnoDB;
+) ENGINE=InnoDB;
 
 #-----------------------------------------------------------------------------
 #-- sf_guard_user_group
@@ -124,7 +124,7 @@ CREATE TABLE `sf_guard_user_group`
 		FOREIGN KEY (`group_id`)
 		REFERENCES `sf_guard_group` (`id`)
 		ON DELETE CASCADE
-)Type=InnoDB;
+) ENGINE=InnoDB;
 
 #-----------------------------------------------------------------------------
 #-- sf_guard_remember_key
@@ -144,7 +144,7 @@ CREATE TABLE `sf_guard_remember_key`
 		FOREIGN KEY (`user_id`)
 		REFERENCES `sf_guard_user` (`id`)
 		ON DELETE CASCADE
-)Type=InnoDB;
+) ENGINE=InnoDB;
 
 # This restores the fkey checks, after having unset them earlier
 SET FOREIGN_KEY_CHECKS = 1;
