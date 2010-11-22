@@ -7,3 +7,4 @@ rm -f ./config/schema.yml
 svn up
 ./symfony propel:build-model
 ./symfony cc
+chmod 777 ./config/schema.yml
