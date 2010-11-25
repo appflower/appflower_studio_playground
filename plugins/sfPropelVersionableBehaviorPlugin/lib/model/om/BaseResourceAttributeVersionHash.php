@@ -274,6 +274,7 @@ abstract class BaseResourceAttributeVersionHash extends BaseObject  implements P
 		$this->hydrate($row, 0, true); // rehydrate
 
 		if ($deep) {  // also de-associate any related objects?
+
 			$this->aResourceAttributeVersion = null;
 			$this->aResourceVersion = null;
 		} // if (deep)

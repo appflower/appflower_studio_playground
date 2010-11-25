@@ -551,9 +551,12 @@ abstract class BaseResourceVersion extends BaseObject  implements Persistent
 		$this->hydrate($row, 0, true); // rehydrate
 
 		if ($deep) {  // also de-associate any related objects?
+
 			$this->aResourceVersionRelatedByResourceVersionId = null;
 			$this->collResourceVersionsRelatedById = null;
+
 			$this->collResourceAttributeVersionHashs = null;
+
 		} // if (deep)
 	}
 

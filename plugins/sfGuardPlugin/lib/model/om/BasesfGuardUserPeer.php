@@ -397,6 +397,12 @@ abstract class BasesfGuardUserPeer {
 	 */
 	public static function clearRelatedInstancePool()
 	{
+		// Invalidate objects in sfGuardUserProfilePeer instance pool, 
+		// since one or more of them may be deleted by ON DELETE CASCADE/SETNULL rule.
+		sfGuardUserProfilePeer::clearInstancePool();
+		// Invalidate objects in ChangelogPeer instance pool, 
+		// since one or more of them may be deleted by ON DELETE CASCADE/SETNULL rule.
+		ChangelogPeer::clearInstancePool();
 		// Invalidate objects in sfGuardUserPermissionPeer instance pool, 
 		// since one or more of them may be deleted by ON DELETE CASCADE/SETNULL rule.
 		sfGuardUserPermissionPeer::clearInstancePool();
@@ -406,12 +412,6 @@ abstract class BasesfGuardUserPeer {
 		// Invalidate objects in sfGuardRememberKeyPeer instance pool, 
 		// since one or more of them may be deleted by ON DELETE CASCADE/SETNULL rule.
 		sfGuardRememberKeyPeer::clearInstancePool();
-		// Invalidate objects in sfGuardUserProfilePeer instance pool, 
-		// since one or more of them may be deleted by ON DELETE CASCADE/SETNULL rule.
-		sfGuardUserProfilePeer::clearInstancePool();
-		// Invalidate objects in ChangelogPeer instance pool, 
-		// since one or more of them may be deleted by ON DELETE CASCADE/SETNULL rule.
-		ChangelogPeer::clearInstancePool();
 	}
 
 	/**
@@ -743,6 +743,18 @@ abstract class BasesfGuardUserPeer {
 		foreach ($objects as $obj) {
 
 
+			// delete related sfGuardUserProfile objects
+			$criteria = new Criteria(sfGuardUserProfilePeer::DATABASE_NAME);
+			
+			$criteria->add(sfGuardUserProfilePeer::USER_ID, $obj->getId());
+			$affectedRows += sfGuardUserProfilePeer::doDelete($criteria, $con);
+
+			// delete related Changelog objects
+			$criteria = new Criteria(ChangelogPeer::DATABASE_NAME);
+			
+			$criteria->add(ChangelogPeer::USER_ID, $obj->getId());
+			$affectedRows += ChangelogPeer::doDelete($criteria, $con);
+
 			// delete related sfGuardUserPermission objects
 			$criteria = new Criteria(sfGuardUserPermissionPeer::DATABASE_NAME);
 			
@@ -760,18 +772,6 @@ abstract class BasesfGuardUserPeer {
 			
 			$criteria->add(sfGuardRememberKeyPeer::USER_ID, $obj->getId());
 			$affectedRows += sfGuardRememberKeyPeer::doDelete($criteria, $con);
-
-			// delete related sfGuardUserProfile objects
-			$criteria = new Criteria(sfGuardUserProfilePeer::DATABASE_NAME);
-			
-			$criteria->add(sfGuardUserProfilePeer::USER_ID, $obj->getId());
-			$affectedRows += sfGuardUserProfilePeer::doDelete($criteria, $con);
-
-			// delete related Changelog objects
-			$criteria = new Criteria(ChangelogPeer::DATABASE_NAME);
-			
-			$criteria->add(ChangelogPeer::USER_ID, $obj->getId());
-			$affectedRows += ChangelogPeer::doDelete($criteria, $con);
 		}
 		return $affectedRows;
 	}

@@ -82,6 +82,16 @@ abstract class BasesfGuardUser extends BaseObject  implements Persistent
 	protected $is_super_admin;
 
 	/**
+	 * @var        sfGuardUserProfile one-to-one related sfGuardUserProfile object
+	 */
+	protected $singlesfGuardUserProfile;
+
+	/**
+	 * @var        array Changelog[] Collection to store aggregation of Changelog objects.
+	 */
+	protected $collChangelogs;
+
+	/**
 	 * @var        array sfGuardUserPermission[] Collection to store aggregation of sfGuardUserPermission objects.
 	 */
 	protected $collsfGuardUserPermissions;
@@ -95,16 +105,6 @@ abstract class BasesfGuardUser extends BaseObject  implements Persistent
 	 * @var        array sfGuardRememberKey[] Collection to store aggregation of sfGuardRememberKey objects.
 	 */
 	protected $collsfGuardRememberKeys;
-
-	/**
-	 * @var        sfGuardUserProfile one-to-one related sfGuardUserProfile object
-	 */
-	protected $singlesfGuardUserProfile;
-
-	/**
-	 * @var        array Changelog[] Collection to store aggregation of Changelog objects.
-	 */
-	protected $collChangelogs;
 
 	/**
 	 * Flag to prevent endless save loop, if this object is referenced
@@ -649,11 +649,17 @@ abstract class BasesfGuardUser extends BaseObject  implements Persistent
 		$this->hydrate($row, 0, true); // rehydrate
 
 		if ($deep) {  // also de-associate any related objects?
-			$this->collsfGuardUserPermissions = null;
-			$this->collsfGuardUserGroups = null;
-			$this->collsfGuardRememberKeys = null;
+
 			$this->singlesfGuardUserProfile = null;
+
 			$this->collChangelogs = null;
+
+			$this->collsfGuardUserPermissions = null;
+
+			$this->collsfGuardUserGroups = null;
+
+			$this->collsfGuardRememberKeys = null;
+
 		} // if (deep)
 	}
 
@@ -827,6 +833,20 @@ abstract class BasesfGuardUser extends BaseObject  implements Persistent
 				$this->resetModified(); // [HL] After being saved an object is no longer 'modified'
 			}
 
+			if ($this->singlesfGuardUserProfile !== null) {
+				if (!$this->singlesfGuardUserProfile->isDeleted()) {
+						$affectedRows += $this->singlesfGuardUserProfile->save($con);
+				}
+			}
+
+			if ($this->collChangelogs !== null) {
+				foreach ($this->collChangelogs as $referrerFK) {
+					if (!$referrerFK->isDeleted()) {
+						$affectedRows += $referrerFK->save($con);
+					}
+				}
+			}
+
 			if ($this->collsfGuardUserPermissions !== null) {
 				foreach ($this->collsfGuardUserPermissions as $referrerFK) {
 					if (!$referrerFK->isDeleted()) {
@@ -845,20 +865,6 @@ abstract class BasesfGuardUser extends BaseObject  implements Persistent
 
 			if ($this->collsfGuardRememberKeys !== null) {
 				foreach ($this->collsfGuardRememberKeys as $referrerFK) {
-					if (!$referrerFK->isDeleted()) {
-						$affectedRows += $referrerFK->save($con);
-					}
-				}
-			}
-
-			if ($this->singlesfGuardUserProfile !== null) {
-				if (!$this->singlesfGuardUserProfile->isDeleted()) {
-						$affectedRows += $this->singlesfGuardUserProfile->save($con);
-				}
-			}
-
-			if ($this->collChangelogs !== null) {
-				foreach ($this->collChangelogs as $referrerFK) {
 					if (!$referrerFK->isDeleted()) {
 						$affectedRows += $referrerFK->save($con);
 					}
@@ -936,6 +942,20 @@ abstract class BasesfGuardUser extends BaseObject  implements Persistent
 			}
 
 
+				if ($this->singlesfGuardUserProfile !== null) {
+					if (!$this->singlesfGuardUserProfile->validate($columns)) {
+						$failureMap = array_merge($failureMap, $this->singlesfGuardUserProfile->getValidationFailures());
+					}
+				}
+
+				if ($this->collChangelogs !== null) {
+					foreach ($this->collChangelogs as $referrerFK) {
+						if (!$referrerFK->validate($columns)) {
+							$failureMap = array_merge($failureMap, $referrerFK->getValidationFailures());
+						}
+					}
+				}
+
 				if ($this->collsfGuardUserPermissions !== null) {
 					foreach ($this->collsfGuardUserPermissions as $referrerFK) {
 						if (!$referrerFK->validate($columns)) {
@@ -954,20 +974,6 @@ abstract class BasesfGuardUser extends BaseObject  implements Persistent
 
 				if ($this->collsfGuardRememberKeys !== null) {
 					foreach ($this->collsfGuardRememberKeys as $referrerFK) {
-						if (!$referrerFK->validate($columns)) {
-							$failureMap = array_merge($failureMap, $referrerFK->getValidationFailures());
-						}
-					}
-				}
-
-				if ($this->singlesfGuardUserProfile !== null) {
-					if (!$this->singlesfGuardUserProfile->validate($columns)) {
-						$failureMap = array_merge($failureMap, $this->singlesfGuardUserProfile->getValidationFailures());
-					}
-				}
-
-				if ($this->collChangelogs !== null) {
-					foreach ($this->collChangelogs as $referrerFK) {
 						if (!$referrerFK->validate($columns)) {
 							$failureMap = array_merge($failureMap, $referrerFK->getValidationFailures());
 						}
@@ -1252,6 +1258,17 @@ abstract class BasesfGuardUser extends BaseObject  implements Persistent
 			// the getter/setter methods for fkey referrer objects.
 			$copyObj->setNew(false);
 
+			$relObj = $this->getsfGuardUserProfile();
+			if ($relObj) {
+				$copyObj->setsfGuardUserProfile($relObj->copy($deepCopy));
+			}
+
+			foreach ($this->getChangelogs() as $relObj) {
+				if ($relObj !== $this) {  // ensure that we don't try to copy a reference to ourselves
+					$copyObj->addChangelog($relObj->copy($deepCopy));
+				}
+			}
+
 			foreach ($this->getsfGuardUserPermissions() as $relObj) {
 				if ($relObj !== $this) {  // ensure that we don't try to copy a reference to ourselves
 					$copyObj->addsfGuardUserPermission($relObj->copy($deepCopy));
@@ -1267,17 +1284,6 @@ abstract class BasesfGuardUser extends BaseObject  implements Persistent
 			foreach ($this->getsfGuardRememberKeys() as $relObj) {
 				if ($relObj !== $this) {  // ensure that we don't try to copy a reference to ourselves
 					$copyObj->addsfGuardRememberKey($relObj->copy($deepCopy));
-				}
-			}
-
-			$relObj = $this->getsfGuardUserProfile();
-			if ($relObj) {
-				$copyObj->setsfGuardUserProfile($relObj->copy($deepCopy));
-			}
-
-			foreach ($this->getChangelogs() as $relObj) {
-				if ($relObj !== $this) {  // ensure that we don't try to copy a reference to ourselves
-					$copyObj->addChangelog($relObj->copy($deepCopy));
 				}
 			}
 
@@ -1324,6 +1330,151 @@ abstract class BasesfGuardUser extends BaseObject  implements Persistent
 			self::$peer = new sfGuardUserPeer();
 		}
 		return self::$peer;
+	}
+
+	/**
+	 * Gets a single sfGuardUserProfile object, which is related to this object by a one-to-one relationship.
+	 *
+	 * @param      PropelPDO $con optional connection object
+	 * @return     sfGuardUserProfile
+	 * @throws     PropelException
+	 */
+	public function getsfGuardUserProfile(PropelPDO $con = null)
+	{
+
+		if ($this->singlesfGuardUserProfile === null && !$this->isNew()) {
+			$this->singlesfGuardUserProfile = sfGuardUserProfileQuery::create()->findPk($this->getPrimaryKey(), $con);
+		}
+
+		return $this->singlesfGuardUserProfile;
+	}
+
+	/**
+	 * Sets a single sfGuardUserProfile object as related to this object by a one-to-one relationship.
+	 *
+	 * @param      sfGuardUserProfile $v sfGuardUserProfile
+	 * @return     sfGuardUser The current object (for fluent API support)
+	 * @throws     PropelException
+	 */
+	public function setsfGuardUserProfile(sfGuardUserProfile $v = null)
+	{
+		$this->singlesfGuardUserProfile = $v;
+
+		// Make sure that that the passed-in sfGuardUserProfile isn't already associated with this object
+		if ($v !== null && $v->getsfGuardUser() === null) {
+			$v->setsfGuardUser($this);
+		}
+
+		return $this;
+	}
+
+	/**
+	 * Clears out the collChangelogs collection
+	 *
+	 * This does not modify the database; however, it will remove any associated objects, causing
+	 * them to be refetched by subsequent calls to accessor method.
+	 *
+	 * @return     void
+	 * @see        addChangelogs()
+	 */
+	public function clearChangelogs()
+	{
+		$this->collChangelogs = null; // important to set this to NULL since that means it is uninitialized
+	}
+
+	/**
+	 * Initializes the collChangelogs collection.
+	 *
+	 * By default this just sets the collChangelogs collection to an empty array (like clearcollChangelogs());
+	 * however, you may wish to override this method in your stub class to provide setting appropriate
+	 * to your application -- for example, setting the initial array to the values stored in database.
+	 *
+	 * @return     void
+	 */
+	public function initChangelogs()
+	{
+		$this->collChangelogs = new PropelObjectCollection();
+		$this->collChangelogs->setModel('Changelog');
+	}
+
+	/**
+	 * Gets an array of Changelog objects which contain a foreign key that references this object.
+	 *
+	 * If the $criteria is not null, it is used to always fetch the results from the database.
+	 * Otherwise the results are fetched from the database the first time, then cached.
+	 * Next time the same method is called without $criteria, the cached collection is returned.
+	 * If this sfGuardUser is new, it will return
+	 * an empty collection or the current collection; the criteria is ignored on a new object.
+	 *
+	 * @param      Criteria $criteria optional Criteria object to narrow the query
+	 * @param      PropelPDO $con optional connection object
+	 * @return     PropelCollection|array Changelog[] List of Changelog objects
+	 * @throws     PropelException
+	 */
+	public function getChangelogs($criteria = null, PropelPDO $con = null)
+	{
+		if(null === $this->collChangelogs || null !== $criteria) {
+			if ($this->isNew() && null === $this->collChangelogs) {
+				// return empty collection
+				$this->initChangelogs();
+			} else {
+				$collChangelogs = ChangelogQuery::create(null, $criteria)
+					->filterBysfGuardUser($this)
+					->find($con);
+				if (null !== $criteria) {
+					return $collChangelogs;
+				}
+				$this->collChangelogs = $collChangelogs;
+			}
+		}
+		return $this->collChangelogs;
+	}
+
+	/**
+	 * Returns the number of related Changelog objects.
+	 *
+	 * @param      Criteria $criteria
+	 * @param      boolean $distinct
+	 * @param      PropelPDO $con
+	 * @return     int Count of related Changelog objects.
+	 * @throws     PropelException
+	 */
+	public function countChangelogs(Criteria $criteria = null, $distinct = false, PropelPDO $con = null)
+	{
+		if(null === $this->collChangelogs || null !== $criteria) {
+			if ($this->isNew() && null === $this->collChangelogs) {
+				return 0;
+			} else {
+				$query = ChangelogQuery::create(null, $criteria);
+				if($distinct) {
+					$query->distinct();
+				}
+				return $query
+					->filterBysfGuardUser($this)
+					->count($con);
+			}
+		} else {
+			return count($this->collChangelogs);
+		}
+	}
+
+	/**
+	 * Method called to associate a Changelog object to this object
+	 * through the Changelog foreign key attribute.
+	 *
+	 * @param      Changelog $l Changelog
+	 * @return     void
+	 * @throws     PropelException
+	 */
+	public function addChangelog(Changelog $l)
+	{
+		if ($this->collChangelogs === null) {
+			$this->initChangelogs();
+		}
+		if (!$this->collChangelogs->contains($l)) { // only add it if the **same** object is not already associated
+			$this->collChangelogs[]= $l;
+			$l->setsfGuardUser($this);
+		}
 	}
 
 	/**
@@ -1704,151 +1855,6 @@ abstract class BasesfGuardUser extends BaseObject  implements Persistent
 	}
 
 	/**
-	 * Gets a single sfGuardUserProfile object, which is related to this object by a one-to-one relationship.
-	 *
-	 * @param      PropelPDO $con optional connection object
-	 * @return     sfGuardUserProfile
-	 * @throws     PropelException
-	 */
-	public function getsfGuardUserProfile(PropelPDO $con = null)
-	{
-
-		if ($this->singlesfGuardUserProfile === null && !$this->isNew()) {
-			$this->singlesfGuardUserProfile = sfGuardUserProfileQuery::create()->findPk($this->getPrimaryKey(), $con);
-		}
-
-		return $this->singlesfGuardUserProfile;
-	}
-
-	/**
-	 * Sets a single sfGuardUserProfile object as related to this object by a one-to-one relationship.
-	 *
-	 * @param      sfGuardUserProfile $v sfGuardUserProfile
-	 * @return     sfGuardUser The current object (for fluent API support)
-	 * @throws     PropelException
-	 */
-	public function setsfGuardUserProfile(sfGuardUserProfile $v = null)
-	{
-		$this->singlesfGuardUserProfile = $v;
-
-		// Make sure that that the passed-in sfGuardUserProfile isn't already associated with this object
-		if ($v !== null && $v->getsfGuardUser() === null) {
-			$v->setsfGuardUser($this);
-		}
-
-		return $this;
-	}
-
-	/**
-	 * Clears out the collChangelogs collection
-	 *
-	 * This does not modify the database; however, it will remove any associated objects, causing
-	 * them to be refetched by subsequent calls to accessor method.
-	 *
-	 * @return     void
-	 * @see        addChangelogs()
-	 */
-	public function clearChangelogs()
-	{
-		$this->collChangelogs = null; // important to set this to NULL since that means it is uninitialized
-	}
-
-	/**
-	 * Initializes the collChangelogs collection.
-	 *
-	 * By default this just sets the collChangelogs collection to an empty array (like clearcollChangelogs());
-	 * however, you may wish to override this method in your stub class to provide setting appropriate
-	 * to your application -- for example, setting the initial array to the values stored in database.
-	 *
-	 * @return     void
-	 */
-	public function initChangelogs()
-	{
-		$this->collChangelogs = new PropelObjectCollection();
-		$this->collChangelogs->setModel('Changelog');
-	}
-
-	/**
-	 * Gets an array of Changelog objects which contain a foreign key that references this object.
-	 *
-	 * If the $criteria is not null, it is used to always fetch the results from the database.
-	 * Otherwise the results are fetched from the database the first time, then cached.
-	 * Next time the same method is called without $criteria, the cached collection is returned.
-	 * If this sfGuardUser is new, it will return
-	 * an empty collection or the current collection; the criteria is ignored on a new object.
-	 *
-	 * @param      Criteria $criteria optional Criteria object to narrow the query
-	 * @param      PropelPDO $con optional connection object
-	 * @return     PropelCollection|array Changelog[] List of Changelog objects
-	 * @throws     PropelException
-	 */
-	public function getChangelogs($criteria = null, PropelPDO $con = null)
-	{
-		if(null === $this->collChangelogs || null !== $criteria) {
-			if ($this->isNew() && null === $this->collChangelogs) {
-				// return empty collection
-				$this->initChangelogs();
-			} else {
-				$collChangelogs = ChangelogQuery::create(null, $criteria)
-					->filterBysfGuardUser($this)
-					->find($con);
-				if (null !== $criteria) {
-					return $collChangelogs;
-				}
-				$this->collChangelogs = $collChangelogs;
-			}
-		}
-		return $this->collChangelogs;
-	}
-
-	/**
-	 * Returns the number of related Changelog objects.
-	 *
-	 * @param      Criteria $criteria
-	 * @param      boolean $distinct
-	 * @param      PropelPDO $con
-	 * @return     int Count of related Changelog objects.
-	 * @throws     PropelException
-	 */
-	public function countChangelogs(Criteria $criteria = null, $distinct = false, PropelPDO $con = null)
-	{
-		if(null === $this->collChangelogs || null !== $criteria) {
-			if ($this->isNew() && null === $this->collChangelogs) {
-				return 0;
-			} else {
-				$query = ChangelogQuery::create(null, $criteria);
-				if($distinct) {
-					$query->distinct();
-				}
-				return $query
-					->filterBysfGuardUser($this)
-					->count($con);
-			}
-		} else {
-			return count($this->collChangelogs);
-		}
-	}
-
-	/**
-	 * Method called to associate a Changelog object to this object
-	 * through the Changelog foreign key attribute.
-	 *
-	 * @param      Changelog $l Changelog
-	 * @return     void
-	 * @throws     PropelException
-	 */
-	public function addChangelog(Changelog $l)
-	{
-		if ($this->collChangelogs === null) {
-			$this->initChangelogs();
-		}
-		if (!$this->collChangelogs->contains($l)) { // only add it if the **same** object is not already associated
-			$this->collChangelogs[]= $l;
-			$l->setsfGuardUser($this);
-		}
-	}
-
-	/**
 	 * Clears the current object and sets all attributes to their default values
 	 */
 	public function clear()
@@ -1883,6 +1889,14 @@ abstract class BasesfGuardUser extends BaseObject  implements Persistent
 	public function clearAllReferences($deep = false)
 	{
 		if ($deep) {
+			if ($this->singlesfGuardUserProfile) {
+				$this->singlesfGuardUserProfile->clearAllReferences($deep);
+			}
+			if ($this->collChangelogs) {
+				foreach ((array) $this->collChangelogs as $o) {
+					$o->clearAllReferences($deep);
+				}
+			}
 			if ($this->collsfGuardUserPermissions) {
 				foreach ((array) $this->collsfGuardUserPermissions as $o) {
 					$o->clearAllReferences($deep);
@@ -1898,21 +1912,13 @@ abstract class BasesfGuardUser extends BaseObject  implements Persistent
 					$o->clearAllReferences($deep);
 				}
 			}
-			if ($this->singlesfGuardUserProfile) {
-				$this->singlesfGuardUserProfile->clearAllReferences($deep);
-			}
-			if ($this->collChangelogs) {
-				foreach ((array) $this->collChangelogs as $o) {
-					$o->clearAllReferences($deep);
-				}
-			}
 		} // if ($deep)
 
+		$this->singlesfGuardUserProfile = null;
+		$this->collChangelogs = null;
 		$this->collsfGuardUserPermissions = null;
 		$this->collsfGuardUserGroups = null;
 		$this->collsfGuardRememberKeys = null;
-		$this->singlesfGuardUserProfile = null;
-		$this->collChangelogs = null;
 	}
 
 	/**

@@ -1,7 +1,6 @@
 <?php
 class sfGuardUser extends PluginsfGuardUser
 {
-
 	public function getName()
 	{
 		return $this->getFirstName().' '.$this->getLastName();

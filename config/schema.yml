@@ -33,3 +33,13 @@ propel:
     offset: { type: integer }
     created_at: null
     updated_at: null
+  newmodel:
+    _attributes: { phpName: NewModel }
+  aaaaaaaaafe:
+    _attributes: { phpName: AAAAAAAAAFe }
+  qrwa:
+    _attributes: { phpName: qrwa }
+  huj:
+    _attributes: { phpName: huj }
+  hmmm:
+    _attributes: { phpName: hmmm }
