@@ -81,10 +81,10 @@ class sfGuardAuthActions extends BasesfGuardAuthActions
 						// so count invalid password attempt for valid user
 						//afRateLimit::rememberSin($request);
 						$result = array('success' => false,'message'=>'The username and/or password is invalid. ! Please try again !');
-						if($wasCaptchaNeeded || afRateLimit::isCaptchaNeeded($request)) {
+						/*if($wasCaptchaNeeded || afRateLimit::isCaptchaNeeded($request)) {
 							$result['redirect'] = '/login';
 							$result['load'] = '/page';
-						}
+						}*/
 												
 						//myLogger::logNewObject($user,'/sfGuardUser/editUser?id='.$user->getId(),'Failed Login',$user);						
 						$result = json_encode($result);
