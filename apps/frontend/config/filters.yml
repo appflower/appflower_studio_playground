@@ -1,5 +1,6 @@
 rendering: ~
-security: ~
+security:
+  class: afGuardBasicSecurityFilter
 
 cache:     ~
 common:

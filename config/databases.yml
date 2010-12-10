@@ -13,7 +13,7 @@ all:
     class:        sfPropelDatabase
     param:
       classname:  PropelPDO
-      dsn:        mysql:dbname=immune_af_studio;host=localhost
+      dsn:        mysql:dbname=appflower_studio;host=localhost
       username:   root
       password:   root
       encoding:   utf8

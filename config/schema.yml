@@ -1,7 +1,7 @@
 propel:
-  sf_guard_user_profile:
-    _attributes: { phpName: sfGuardUserProfile }
-    user_id: { type: integer, primaryKey: true, foreignTable: sf_guard_user, foreignReference: id, onDelete: cascade }
+  af_guard_user_profile:
+    _attributes: { phpName: afGuardUserProfile }
+    user_id: { type: integer, primaryKey: true, foreignTable: af_guard_user, foreignReference: id, onDelete: cascade }
     timezones_id: { type: integer, foreignTable: timezones, foreignReference: id, onDelete: cascade }
     first_name: varchar(20)
     last_name: varchar(20)
@@ -43,3 +43,7 @@ propel:
     _attributes: { phpName: huj }
   hmmm:
     _attributes: { phpName: hmmm }
+  newmodely:
+    _attributes: { phpName: NewModely }
+  newmodelo:
+    _attributes: { phpName: NewModelo }

@@ -1,5 +1,16 @@
 #Options +FollowSymLinks +ExecCGI
 
+AddOutputFilterByType DEFLATE text/html text/css application/x-javascript
+
+<IfModule mod_headers.c>
+  <FilesMatch "\.(jpg|png|gif|swf)$">
+     Header set Cache-Control "max-age=31536000, public"
+  </FilesMatch>
+</IfModule>
+
+php_flag apc.shm_size 40
+php_flag apc.stat 0
+
 <IfModule mod_rewrite.c>
   RewriteEngine On
 

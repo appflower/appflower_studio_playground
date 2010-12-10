@@ -1,9 +1,0 @@
-passwordRequest:
-  is_secure:   false              # - 
-
-passwordRequestMailSent:
-  is_secure:   false              # - 
-
-all:
-  is_secure:   true         # -
-  credentials: administration_edit      # -

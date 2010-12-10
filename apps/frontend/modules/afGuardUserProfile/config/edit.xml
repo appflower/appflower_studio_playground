@@ -6,13 +6,13 @@ xmlns:i="http://www.appflower.com/schema/" type="edit">
 <i:title>Editing profile settings</i:title>
 
 <i:datasource type="orm">
-	<i:class>sfGuardUserProfilePeer</i:class>
+	<i:class>afGuardUserProfilePeer</i:class>
 	<i:method name="retrieveByPk">
 		<i:param name="id">{id}</i:param>
 	</i:method>
 </i:datasource>
 
-<i:fields url="sfGuardUserProfile/update">
+<i:fields url="afGuardUserProfile/update">
 	<i:field name="widget_help_is_enabled" label="Widget Help" type="checkbox" state="editable" style="css" >
 	
 		<i:value type="orm">
