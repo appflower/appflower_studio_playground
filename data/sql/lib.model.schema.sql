@@ -4,13 +4,13 @@
 SET FOREIGN_KEY_CHECKS = 0;
 
 #-----------------------------------------------------------------------------
-#-- sf_guard_user_profile
+#-- af_guard_user_profile
 #-----------------------------------------------------------------------------
 
-DROP TABLE IF EXISTS `sf_guard_user_profile`;
+DROP TABLE IF EXISTS `af_guard_user_profile`;
 
 
-CREATE TABLE `sf_guard_user_profile`
+CREATE TABLE `af_guard_user_profile`
 (
 	`user_id` INTEGER  NOT NULL,
 	`timezones_id` INTEGER,
@@ -26,41 +26,14 @@ CREATE TABLE `sf_guard_user_profile`
 	`created_at` DATETIME,
 	`updated_at` DATETIME,
 	PRIMARY KEY (`user_id`),
-	CONSTRAINT `sf_guard_user_profile_FK_1`
+	CONSTRAINT `af_guard_user_profile_FK_1`
 		FOREIGN KEY (`user_id`)
-		REFERENCES `sf_guard_user` (`id`)
+		REFERENCES `af_guard_user` (`id`)
 		ON DELETE CASCADE,
-	INDEX `sf_guard_user_profile_FI_2` (`timezones_id`),
-	CONSTRAINT `sf_guard_user_profile_FK_2`
+	INDEX `af_guard_user_profile_FI_2` (`timezones_id`),
+	CONSTRAINT `af_guard_user_profile_FK_2`
 		FOREIGN KEY (`timezones_id`)
 		REFERENCES `timezones` (`id`)
-		ON DELETE CASCADE
-) ENGINE=InnoDB;
-
-#-----------------------------------------------------------------------------
-#-- changelog
-#-----------------------------------------------------------------------------
-
-DROP TABLE IF EXISTS `changelog`;
-
-
-CREATE TABLE `changelog`
-(
-	`id` INTEGER  NOT NULL AUTO_INCREMENT,
-	`object_id` INTEGER default 0 NOT NULL,
-	`object_name` VARCHAR(255)  NOT NULL,
-	`object_change_type` VARCHAR(2) default '0' NOT NULL,
-	`object_link` VARCHAR(255),
-	`module_name` VARCHAR(255)  NOT NULL,
-	`changes` TEXT  NOT NULL,
-	`user_commit_msg` TEXT  NOT NULL,
-	`user_id` INTEGER default 0 NOT NULL,
-	`updated_at` DATETIME,
-	PRIMARY KEY (`id`),
-	INDEX `changelog_FI_1` (`user_id`),
-	CONSTRAINT `changelog_FK_1`
-		FOREIGN KEY (`user_id`)
-		REFERENCES `sf_guard_user` (`id`)
 		ON DELETE CASCADE
 ) ENGINE=InnoDB;
 

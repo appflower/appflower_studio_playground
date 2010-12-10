@@ -6,7 +6,7 @@
 <?php include_title() ?>
 </head>
 
-<body>
+<body style="background-image: url(/appFlowerStudioPlugin/images/bg/backgrond_3.2.2.jpg);background-position: 50% 50%;background-repeat: no-repeat;">
 	<!-- Page Frame -->
 	<?php if (has_slot('content')): ?>
 		<?php include_slot('content') ?>

@@ -1,20 +1,23 @@
 SET foreign_key_checks = 0;
-INSERT INTO `sf_guard_group` (`id`, `name`, `description`) VALUES
-(1, 'Administrator', 'Administrator group');
+INSERT INTO `af_guard_group` (`id`, `name`, `description`) VALUES
+(1, 'admin', 'Administrator group');
 
-INSERT INTO `sf_guard_group_permission` (`group_id`, `permission_id`) VALUES
+INSERT INTO `af_guard_group_permission` (`group_id`, `permission_id`) VALUES
 (1, 1);
 
-INSERT INTO `sf_guard_permission` (`id`, `name`, `description`) VALUES
+INSERT INTO `af_guard_permission` (`id`, `name`, `description`) VALUES
 (1, 'admin', 'Administrator permission');
 
-INSERT INTO `sf_guard_user` (`id`, `username`, `algorithm`, `salt`, `password`, `created_at`, `last_login`, `is_active`, `is_super_admin`) VALUES
-(1, 'admin', 'sha1', 'b47bbb81ce8e8b6dc055408cd570b29e', '279e489fd155d706f1b9f690122c53f0404db431', '2007-06-24 20:18:21', '2010-03-25 06:09:51', 1, 1);
+INSERT INTO `af_guard_remember_key` (`user_id`, `remember_key`, `ip_address`, `created_at`) VALUES
+(1, '93aeeeb7c63bd4f13aa38aade8a8f4eb', '192.168.1.100', '2010-11-19 13:52:51');
 
-INSERT INTO `sf_guard_user_group` (`user_id`, `group_id`) VALUES
+INSERT INTO `af_guard_user` (`id`, `username`, `algorithm`, `salt`, `password`, `created_at`, `last_login`, `is_active`, `is_super_admin`) VALUES
+(1, 'admin', 'sha1', '74333eec3edd981fb5b74b13bc85ee78', '52fdccfb819d47b93169a3d1034eff6bdd89b402', '2010-02-19 16:46:52', '2010-11-19 15:55:35', 1, 1);
+
+INSERT INTO `af_guard_user_group` (`user_id`, `group_id`) VALUES
 (1, 1);
 
-INSERT INTO `sf_guard_user_profile` (`user_id`, `timezones_id`, `first_name`, `last_name`, `job_title`, `phone_mobile`, `phone_office`, `personal_body`, `image`, `is_developer`, `widget_help_is_enabled`, `created_at`, `updated_at`) VALUES
+INSERT INTO `af_guard_user_profile` (`user_id`, `timezones_id`, `first_name`, `last_name`, `job_title`, `phone_mobile`, `phone_office`, `personal_body`, `image`, `is_developer`, `widget_help_is_enabled`, `created_at`, `updated_at`) VALUES
 (1, NULL, 'Admin', '', '', '', '', '', NULL, NULL, 1, '2007-07-23 21:42:10', '2007-07-23 21:42:10');
 
 INSERT INTO `timezones` (`id`, `name`, `offset`, `created_at`, `updated_at`) VALUES

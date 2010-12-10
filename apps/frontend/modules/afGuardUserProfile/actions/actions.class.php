@@ -5,14 +5,14 @@
 <?php
 
 /**
- * sfGuardUserProfile actions.
+ * afGuardUserProfile actions.
  *
  * @package    logForge
  * @subpackage sfGuardUserProfile
  * @author     Jimmi Andersen <ja@immune.dk>
  * @version    SVN: $Id: actions.class.php 3335 2007-01-23 16:19:56Z fabien $
  */
-class sfGuardUserProfileActions extends CustomActions
+class afGuardUserProfileActions extends CustomActions
 {
 	
   public function executeEdit()
