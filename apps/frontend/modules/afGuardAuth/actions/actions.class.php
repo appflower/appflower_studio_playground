@@ -2,6 +2,17 @@
 require_once(dirname(__FILE__).'/../../../../../plugins/afGuardPlugin/modules/afGuardAuth/lib/BaseafGuardAuthActions.class.php');
 class afGuardAuthActions extends BaseafGuardAuthActions
 {
+	public function executeSignout($request)
+	{
+		afsNotificationPeer::log('Successful logout from the system!');
+		
+        $this->getUser()->signOut();
+
+        $signoutUrl = sfConfig::get('app_sf_guard_plugin_success_signout_url', $request->getReferer());
+
+        $this->redirect('' != $signoutUrl ? $signoutUrl : '@homepage');
+	}
+	
 	public function executeSignin($request)
 	{
 
@@ -23,6 +34,7 @@ class afGuardAuthActions extends BaseafGuardAuthActions
                     $wasCaptchaNeeded = afRateLimit::isCaptchaNeeded($request);
                     $captcha = ( isset($signin['captcha']) ? $signin['captcha'] : null);
                     if(!afRateLimit::verifyCaptchaIfNeeded($request, $captcha)){
+                    	afsNotificationPeer::log('Failed to get authenticated in the system!');
                         return array('success' => false,'message'=>'The captcha verification failed!', 'redirect'=>'/login', 'load'=>'page');
                     }
                 }
@@ -49,7 +61,7 @@ class afGuardAuthActions extends BaseafGuardAuthActions
 						$signinUrl=$this->getRequest()->getReferer();
 						$signinUrl=($signinUrl!=null)?$signinUrl:url_for('@homepage');
 						
-						afsNotificationPeer::log('User has authenticated in the system!');
+						afsNotificationPeer::log('Successful authentication in the system!');
 
 						$result = array('success' => true/*,'message'=>'You have logged in succesfuly ! You\'ll be redirected now...'*/,'redirect'=>$signinUrl,'load'=>'page');
 						$result = json_encode($result);
@@ -57,6 +69,7 @@ class afGuardAuthActions extends BaseafGuardAuthActions
 					}
 					else
 					{
+						afsNotificationPeer::log('Failed to get authenticated in the system!');
 						$result = array('success' => false,'message'=>'The username and/or password is invalid. ! Please try again !');
                         if ($captchaEnabled) {
                             afRateLimit::rememberSin($request);
@@ -74,6 +87,7 @@ class afGuardAuthActions extends BaseafGuardAuthActions
                     if ($captchaEnabled) {
                         afRateLimit::rememberSin($request);
                     }
+                    afsNotificationPeer::log('Failed to get authenticated in the system!');
 					$result = array('success' => false,'message'=>'The username and/or password is invalid. ! Please try again !','redirect'=>'/login','load'=>'page');
 					$result = json_encode($result);
 					return $this->renderText($result);
