@@ -56,7 +56,7 @@ all:
 
   .settings:
     compat_10: 				on
-    enabled_modules: [test, default, afGuardGroup, afGuardUser, afGuardAuth, sfPropelActAsSluggableBehavior, immAmChart, immGeneratorTask, appFlower, parser, sfCombine, appFlowerStudio, afsModelGridData ]
+    enabled_modules: [test, default, sfGuardGroup, sfGuardUser, afGuardAuth, sfPropelActAsSluggableBehavior, immAmChart, immGeneratorTask, appFlower, parser, sfCombine, appFlowerStudio, afsModelGridData, afsWidgetBuilder, studio]
 
     # Optional features. Deactivating unused features boots performance a bit.
     use_database:           true        # Enable database manager. Set to off if you don't use a database.
