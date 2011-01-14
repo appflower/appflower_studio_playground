@@ -7,7 +7,7 @@ class ProjectConfiguration extends sfProjectConfiguration
 {
     /**
      * stores current project if current request contains project_slug
-     * @var Project
+     * @var afsProject
      */
     private $currentProject;
 
@@ -31,12 +31,12 @@ class ProjectConfiguration extends sfProjectConfiguration
           return;
       }
 
-//      $this->currentProject = ProjectQuery::create()->findOneBySlug('seedcontrol');
+//      $this->currentProject = afsProjectQuery::create()->findOneBySlug('seedcontrol');
 //      return;
 
 //      if ($request->hasParameter('project_slug')) {
 //          $projectSlug = $request->getParameter('project_slug');
-//          $this->currentProject = ProjectQuery::create()->findOneBySlug($projectSlug);
+//          $this->currentProject = afsProjectQuery::create()->findOneBySlug($projectSlug);
 //          if (!$this->currentProject) {
 //              throw new Exception("Could not find project with slug: $projectSlug");
 //          }
