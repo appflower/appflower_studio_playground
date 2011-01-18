@@ -5,6 +5,7 @@ CLEANUP=( "./plugins/afGuardPlugin" "./plugins/appFlowerPlugin" "./plugins/appFl
 #usage: svn_up.php /www/appflower_studio
 
 DIR=$1
+cd $DIR
 date
 rm -f ./config/schema.yml
 echo SVN cleanup
