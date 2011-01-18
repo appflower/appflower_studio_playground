@@ -2,8 +2,9 @@
 
 CLEANUP=( "./plugins/afGuardPlugin" "./plugins/appFlowerPlugin" "./plugins/appFlowerStudioPlugin" "./plugins/sfPropelSqlDiffPlugin" "./plugins/sfCaptchaPlugin" "./plugins" "./lib/vendor/symfony" "./lib/vendor" "." )
 
+#usage: svn_up.php /www/appflower_studio
 
-DIR=$PWD
+DIR=$1
 date
 rm -f ./config/schema.yml
 echo SVN cleanup
