@@ -12,6 +12,7 @@ for (( i = 0 ; i < ${#CLEANUP[@]} ; i++ ))
 do
 	cd ${CLEANUP[$i]}
 	svn cleanup
+	cd $DIR/../
 	echo ${CLEANUP[$i]} cleaned up
 done
 svn up
