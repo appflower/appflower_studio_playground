@@ -3,8 +3,7 @@
 CLEANUP=( "./plugins/afGuardPlugin" "./plugins/appFlowerPlugin" "./plugins/appFlowerStudioPlugin" "./plugins/sfPropelSqlDiffPlugin" "./plugins" "./lib/vendor/symfony" "./lib/vendor" "." )
 
 
-DIR=$(dirname $0)
-cd $DIR/../
+DIR=$PWD
 date
 rm -f ./config/schema.yml
 echo SVN cleanup
@@ -12,7 +11,7 @@ for (( i = 0 ; i < ${#CLEANUP[@]} ; i++ ))
 do
 	cd ${CLEANUP[$i]}
 	svn cleanup
-	cd $DIR/../
+	cd $DIR
 	echo ${CLEANUP[$i]} cleaned up
 done
 svn up
