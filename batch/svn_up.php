@@ -1,6 +1,6 @@
 #!/bin/sh
 
-CLEANUP=( "./plugins/afGuardPlugin" "./plugins/appFlowerPlugin" "./plugins/appFlowerStudioPlugin" "./plugins/sfPropelSqlDiffPlugin" "./plugins" "./lib/vendor/symfony" "./lib/vendor" "." )
+CLEANUP=( "./plugins/afGuardPlugin" "./plugins/appFlowerPlugin" "./plugins/appFlowerStudioPlugin" "./plugins/sfPropelSqlDiffPlugin" "./plugins/sfCaptchaPlugin" "./plugins" "./lib/vendor/symfony" "./lib/vendor" "." )
 
 
 DIR=$PWD
