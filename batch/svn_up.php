@@ -10,7 +10,8 @@ rm -f ./config/schema.yml
 echo SVN cleanup
 for (( i = 0 ; i < ${#CLEANUP[@]} ; i++ ))
 do
-	svn cleanup ${CLEANUP[$i]}
+	cd ${CLEANUP[$i]}
+	svn cleanup
 	echo ${CLEANUP[$i]} cleaned up
 done
 svn up
