@@ -1,21 +1,23 @@
 #!/bin/sh
 
-CLEANUP=( "./plugins/afGuardPlugin" "./plugins/appFlowerPlugin" "./plugins/appFlowerStudioPlugin" "./plugins/sfPropelSqlDiffPlugin" "./plugins/sfCaptchaPlugin" "./plugins" "./lib/vendor/symfony" "./lib/vendor" "." )
+DIR=$(dirname $0)
 
-#usage: svn_up.php /www/appflower_studio
-
-DIR=$1
-cd $DIR
 date
-rm -f ./config/schema.yml
+
+echo Setting root dir for project
+cd $DIR/../
+
 echo SVN cleanup
-for (( i = 0 ; i < ${#CLEANUP[@]} ; i++ ))
+rm -rf lock.log
+find ./ -name "lock" >> lock.log
+FILES=`cat lock.log`
+
+for file in $FILES
 do
-	cd ${CLEANUP[$i]}
-	svn cleanup
-	cd $DIR
-	echo ${CLEANUP[$i]} cleaned up
+  rm -rf $file
 done
+
+rm -f ./config/schema.yml
 svn up
 ./symfony propel:build-model
 ./symfony cc
