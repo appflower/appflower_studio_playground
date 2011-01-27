@@ -30,10 +30,6 @@ af_guard_password:
   url: /forgot-password
   param: { module: afGuardAuth, action: passwordRequest }  
   
-project:
-  url: /project/:project_slug/:requested_module/:requested_action/*
-  param: { module: afsProjectProxy, action: processRequest }
-
   
 default_index:
   url:   /:module
