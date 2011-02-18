@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<i:view xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://www.appflower.com /schema/appflower.xsd"
+xmlns:i="http://www.appflower.com/schema/" type="layout">
+
+	<i:title>Dashboard</i:title>	
+    
+	<i:area type="content" layout="2">
+		<i:tab title="Summary">
+			<i:component column="0" name="listUnresolvedByComponent" module="ticket"></i:component>
+			<i:component column="0" name="listUnresolvedByVersion" module="ticket"></i:component>
+	        <i:component column="1" name="listUnresolvedByPriority" module="ticket"></i:component>
+	        <i:component column="1" name="listByResolution" module="ticket"></i:component>
+	        <i:component column="1" name="listUnresolvedByAssignee" module="ticket"></i:component>
+	        <i:component column="0" name="list" module="customer"></i:component>
+	        <i:component column="1" name="listByType" module="ticket"></i:component>
+	        <i:component column="0" name="listByCustomer" module="ticket"></i:component>
+	        <i:component column="1" name="listByTypeByCustomer" module="ticket"></i:component>
+		</i:tab>
+		<i:tab title="My tickets" layout="1">
+        	<i:component name="listAssignedToMe" module="ticket"></i:component>
+   	 	</i:tab>
+		<i:tab title="All tickets" layout="1">
+        	<i:component name="list" module="ticket"></i:component>
+   	 	</i:tab>
+   	 	<i:tab title="Latest changes" layout="5">
+                    <i:component column="0" name="listTicketsLastUpdated" module="ticket"></i:component>
+                    <i:component column="1" name="listLatestComments" module="ticketComment"></i:component>
+                    <i:component column="0" name="listLatestTimetracks" module="ticket"></i:component>
+                    <i:component column="2" name="test" module="TEST"></i:component>
+   	 	</i:tab>    
+	</i:area>
+       
+</i:view>
