@@ -1,0 +1,18 @@
+[submodule "plugins/appFlowerPlugin"]
+	path = plugins/appFlowerPlugin
+	url = git@github.com:appflower/appflower_engine.git
+[submodule "plugins/appFlowerStudioPlugin"]
+	path = plugins/appFlowerStudioPlugin
+	url = git@github.com:appflower/appflower_studio.git
+[submodule "plugins/afGuardPlugin"]
+	path = plugins/afGuardPlugin
+	url = git@github.com:appflower/afGuardPlugin.git
+[submodule "plugins/sfCaptchaPlugin"]
+	path = plugins/sfCaptchaPlugin
+	url = git@github.com:appflower/sfCaptchaPlugin.git
+[submodule "plugins/sfPropelSqlDiffPlugin"]
+	path = plugins/sfPropelSqlDiffPlugin
+	url = git@github.com:appflower/sfPropelSqlDiffPlugin.git
+[submodule "plugins/afAutomailerPlugin"]
+	path = plugins/afAutomailerPlugin
+	url = git@github.com:appflower/afAutomailerPlugin.git
