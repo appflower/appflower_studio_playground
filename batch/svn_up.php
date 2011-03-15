@@ -7,18 +7,12 @@ date
 echo Setting root dir for project
 cd $DIR/../
 
-echo SVN cleanup
-rm -rf lock.log
-find ./ -name "lock" >> lock.log
-FILES=`cat lock.log`
-
-for file in $FILES
-do
-  rm -rf $file
-done
-
-rm -f ./config/schema.yml
-svn up
+git checkout ./config/schema.yml
+git fetch
+git stash
+git merge origin/master
+git stash pop
+git submodule update
 ./symfony propel:build-model
 ./symfony cc
 chmod 777 ./config/schema.yml
