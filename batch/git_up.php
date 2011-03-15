@@ -14,6 +14,8 @@ git stash
 git merge origin/master
 git stash pop
 git submodule update
+
+echo Building model and cc
 ./symfony propel:build-model
 ./symfony cc
 chmod 777 ./config/schema.yml
