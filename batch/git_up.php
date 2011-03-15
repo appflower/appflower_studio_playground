@@ -7,6 +7,7 @@ date
 echo Setting root dir for project
 cd $DIR/../
 
+echo Updating from GitHub repo
 git checkout ./config/schema.yml
 git fetch
 git stash
