@@ -19,3 +19,4 @@ echo Building model and cc
 ./symfony propel:build-model
 ./symfony cc
 chmod 777 ./config/schema.yml
+chmod 777 ./apps/frontend/config/pages
