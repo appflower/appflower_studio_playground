@@ -17,6 +17,7 @@ git submodule update
 
 echo Building model and cc
 ./symfony propel:build-model
+./symfony appflower:validator-cache frontend cache yes
 ./symfony cc
 chmod 777 ./config/schema.yml
 chmod 777 ./apps/frontend/config/pages
