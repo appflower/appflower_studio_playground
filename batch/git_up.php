@@ -13,7 +13,14 @@ git fetch
 git stash
 git merge origin/master
 git stash pop
+
+cd plugins/appFlowerStudioPlugin
+git stash
+cd ../..
 git submodule update
+cd plugins/appFlowerStudioPlugin
+git stash pop
+cd ../..
 
 echo Building model and cc
 ./symfony propel:build-model
