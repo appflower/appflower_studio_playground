@@ -1,4 +1,8 @@
 rendering: ~
+
+apiKey:
+  enabled: false
+  
 security:
   class: afGuardBasicSecurityFilter
   
