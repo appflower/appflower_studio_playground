@@ -18,4 +18,4 @@
 	url = git@github.com:appflower/afAutomailerPlugin.git
 [submodule "lib/vendor/symfony"]
 	path = lib/vendor/symfony
-	url = git://github.com/vjousse/symfony-1.4.git
+	url = git://github.com/appflower/symfony-1.4.git
