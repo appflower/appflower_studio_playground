@@ -5,3 +5,4 @@ plugins.appFlowerPlugin.lib.model.schema.sql=propel
 plugins.sfPropelVersionableBehaviorPlugin.lib.model.schema.sql=propel
 plugins.appFlowerStudioPlugin.lib.model.schema.sql=propel
 plugins.afGuardPlugin.lib.model.schema.sql=propel
+plugins.afAutomailerPlugin.lib.model.schema.sql=propel
