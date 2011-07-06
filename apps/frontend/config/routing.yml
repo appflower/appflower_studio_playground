@@ -1,7 +1,7 @@
 # default rules
 homepage:
   url:   /
-  param: { module: appFlowerStudio, action: studio }
+  param: { module: default, action: index }
   
 ##############################################################################
 #--[ User Management ]------------------------------------------------------ #
