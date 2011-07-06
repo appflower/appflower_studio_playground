@@ -2,14 +2,14 @@ prod:
   .settings:
     logging_enabled: true
     error_reporting:        <?php echo (E_ALL | E_STRICT)."\n" ?>
-    web_debug:              true
+    web_debug:              false
     no_script_name:         true
 
 dev:
   .settings:
     # E_ALL | E_STRICT = 4095
     error_reporting:        <?php echo (E_ALL | E_STRICT)."\n" ?>
-    web_debug:              true
+    web_debug:              false
     cache:                  false
     no_script_name:         false
     etag:                   false
@@ -19,7 +19,7 @@ stg:
   .settings:
     # E_ALL | E_STRICT = 4095
     error_reporting:        <?php echo (E_ALL | E_STRICT)."\n" ?>
-    web_debug:              true
+    web_debug:              false
     cache:                  true
     no_script_name:         false
     etag:                   false
