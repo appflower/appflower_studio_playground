@@ -1,23 +1,2 @@
 propel:
-  af_guard_user_profile:
-    _attributes: { phpName: afGuardUserProfile }
-    user_id: { type: integer, primaryKey: true, foreignTable: af_guard_user, foreignReference: id, onDelete: cascade }
-    timezones_id: { type: integer, foreignTable: timezones, foreignReference: id, onDelete: cascade }
-    first_name: varchar(20)
-    last_name: varchar(20)
-    job_title: varchar(255)
-    phone_mobile: varchar(255)
-    phone_office: varchar(255)
-    personal_body: longvarchar
-    image: varchar(255)
-    is_developer: boolean
-    widget_help_is_enabled: { type: boolean, default: true }
-    created_at: null
-    updated_at: null
-  timezones:
-    _attributes: { phpName: TimeZones }
-    id: null
-    name: { type: varchar(128), index: true }
-    offset: { type: integer }
-    created_at: null
-    updated_at: null
+  

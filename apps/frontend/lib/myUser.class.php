@@ -1,6 +1,6 @@
 <?php
 
-class myUser extends afGuardSecurityUser implements AppFlowerSecurityUser
+class myUser extends sfBasicSecurityUser
 {
 	public function initialize(sfEventDispatcher $dispatcher, sfStorage $storage, $options = array())
 	{
@@ -8,8 +8,4 @@ class myUser extends afGuardSecurityUser implements AppFlowerSecurityUser
 		$options['timeout'] = 28800;
 		parent::initialize($dispatcher, $storage, $options);
 	}
-	
-	function  getAppFlowerUser() {
-        return $this->getGuardUser();
-    }
 }
