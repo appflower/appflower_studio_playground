@@ -13,9 +13,6 @@
 [submodule "plugins/sfPropelSqlDiffPlugin"]
 	path = plugins/sfPropelSqlDiffPlugin
 	url = git@github.com:appflower/sfPropelSqlDiffPlugin.git
-[submodule "plugins/afAutomailerPlugin"]
-	path = plugins/afAutomailerPlugin
-	url = git@github.com:appflower/afAutomailerPlugin.git
 [submodule "lib/vendor/symfony"]
 	path = lib/vendor/symfony
 	url = git://github.com/appflower/symfony-1.4.git
