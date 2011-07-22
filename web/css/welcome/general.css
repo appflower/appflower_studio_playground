@@ -1,0 +1,124 @@
+/*
+==============================================================================================================================================
+Title:				Style sheet - appflower.com
+Type:					General
+File:					general.css
+CSS version:	1.0
+Author:				Roman Leinwather
+E-mail:				roman.leinwather@gmail.com
+Website:			http://www.lewro.com
+Copyright:		Copyright (c) 2011 AppFlower
+Updated:			5th Dec 2011
+==============================================================================================================================================
+
+TABLE OF CONTENT
+
+
+I.		Yahoo Reset CSS		
+II.		Body
+III.	Default Elements
+IV.		Headings
+V.		Links
+VI.		Media 
+VII. 	Layout
+
+================================================================================================================================================
+*/
+
+/*		I. Yahoo Reset CSS
+================================================================================================================================================
+*/
+
+@import url(http://yui.yahooapis.com/2.6.0/build/reset/reset-min.css);
+:focus {outline-style:none;} 
+
+/*		II. Body
+================================================================================================================================================
+*/
+
+html {background:url(/images/welcome/bg_page.png)  0 0 repeat;}
+body {font-family: Arial, Tahoma, "sans-serif"; font-size:13px; line-height:1.5em;}
+
+/*		III. Default Elements & Reusable Classes
+================================================================================================================================================
+*/
+
+/* Test - no internet  */
+* {margin:0px; padding:0px; list-style:none;}
+
+ul {list-style:none;}
+ol {list-style:upper-roman;}
+
+hr { }
+
+blockquote { }
+blockquote p { } 
+blockquote cite {	}
+
+abbr { }
+abbr:hover { }
+
+del { }
+strong {font-weight:bold;}
+em {font-style:italic;}
+
+.float_left {float: left;}
+.float_right {float: right;}
+.hide_text {text-indent: -99999px;}
+.hide_all {display: none;}
+
+.clear {clear:both;}
+.last {margin-right:0px !important;}
+
+textarea {}
+
+/*		IV. Headings
+================================================================================================================================================
+*/
+
+h1 {background:url(/images/welcome/bg_logo.png) 0 0 no-repeat; text-indent:-99999px; width:165px; height:50px;}
+h2 {font-size:32px; text-align:center; color:#fff; font-weight:bold; margin-bottom:30px;}
+
+
+/*		V. Links
+================================================================================================================================================
+*/
+
+a:link,
+a:visited {text-decoration:none;}
+a:hover,
+a:focus {}
+
+/*		VI. Media
+================================================================================================================================================
+*/
+
+img {}
+
+/*		VII. Layout
+================================================================================================================================================
+*/
+#page {width:760px; margin:50px auto; background:url(/images/welcome/bg_content.png) 0 0 repeat;}
+#page #logo {background:url(/images/welcome/bg_header.png) 0 0 repeat; height:100px;} 
+#page #logo h1 {float:left; margin:30px 0 0 290px;}
+#page #logo p {float:right; color:#8394ab; font-size:10px; font-weight:bold; margin:10px;}
+
+#primary_content {padding:60px 100px;}
+#primary_content p {color:#c7defa; font-size:14px; font-weight:bold; text-align:center; margin-bottom:60px;}
+#options {width:100%;}
+#options .white_box {float:left; height:340px; width:194px; padding:25px; margin-right:72px; background:url(/images/welcome/bg_white_box.png) 0 0 no-repeat;}
+#options .white_box p {font-size:13px; font-weight:normal; color:#666; margin-bottom:0px; text-align:left; height:216px;}
+#options .white_box a.button {display:block; position:absolute; width:193px; height:39px; text-indent:-9999px;}
+#options .white_box a.normal {color:#70ab2c;}
+#options .white_box a.normal:hover {color:#000000;}
+
+#options .white_box#example {margin-right:0px;}
+#options .white_box  h3 {font-size:18px; font-weight:bold; color:#000; margin-bottom:22px; padding-bottom:3px;}
+#options .white_box h3 span {color:#70ab2c;}
+
+#options .white_box#playground h3 {background:url(/images/welcome/ico_playground.png) 0 0 no-repeat; padding-left:75px;}
+#options .white_box#example h3 {background:url(/images/welcome/ico_sample.png) 0 0 no-repeat; padding-left:75px;}
+
+
+
+
