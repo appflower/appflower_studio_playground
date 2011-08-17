@@ -3,8 +3,7 @@ rendering: ~
 apiKey:
   enabled: false
   
-security:
-  class: afGuardBasicSecurityFilter
+security: ~
   
 csrf:
  class: sfCSRFFilter
