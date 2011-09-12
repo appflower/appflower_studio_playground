@@ -108,9 +108,9 @@ img {}
 #page #logo h1 {float:left; margin:30px 0 0 290px;}
 #page #logo p {float:right; color:#8394ab; font-size:10px; font-weight:bold; margin:10px;}
 
-#primary_content {padding:60px 100px;}
-#primary_content p {color:#c7defa; font-size:14px; font-weight:bold; text-align:center; margin-bottom:60px;}
-
-
-
-
+div#primary_content {padding:60px 100px;}
+div.content p {color:#c7defa; font-size:14px; font-weight:bold; text-align:center;}
+div#primary_content p {margin-bottom:30px;}
+div.content ul {
+    margin-left: 20px;
+}
