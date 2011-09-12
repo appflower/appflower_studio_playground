@@ -10,7 +10,7 @@ To use your AppFlower Virtual Machine - open below URL in your browser:
 http://'.$ipAddr.'/
 
 ';
-$appflowerAscii = file_get_contents('/root/scripts/appflower.ascii');
+$appflowerAscii = file_get_contents(__DIR__.'/appflower.ascii');
 $appflowerAscii = str_replace('\\', '\\\\', $appflowerAscii);
 file_put_contents('/etc/issue', $appflowerAscii.$issueContent);
 ?>
