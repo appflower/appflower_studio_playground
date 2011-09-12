@@ -114,3 +114,8 @@ div#primary_content p {margin-bottom:30px;}
 div.content ul {
     margin-left: 20px;
 }
+
+div.content a {
+    font-weight: bold;
+    text-decoration: underline;
+}
