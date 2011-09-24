@@ -9,12 +9,6 @@ test:
       classname:  DebugPDO
 
 all:
-  studio:
-    class:        sfPropelDatabase
-    param:
-      classname:  PropelPDO
-      dsn:        sqlite:%SF_LOG_DIR%/studio_sqlite.db
-
   propel:
     class:        sfPropelDatabase
     param:
