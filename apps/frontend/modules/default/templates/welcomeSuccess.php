@@ -11,20 +11,4 @@
 
       <p class="link" style="font-size: 26px"><a class="button" target="_blank" href="/studio">Start Studio</a></p>
     </div>
-    <?php if (isset($vhosts) && count($vhosts) > 0) { ?>
-    <div class="content">
-      <p>To load other AppFlower/Studio projects that exists in current environment - click one of the links below:</p>
-      <ul>
-          <?php
-          /* @var $vhost ServerVirtualHost */
-          foreach ($vhosts as $vhost) {
-              $port = $vhost->getPort();
-              $slug = $vhost->getSlug();
-              $vhostUrl = "http://$_SERVER[SERVER_ADDR]:$port";
-              echo '<li>'.link_to($slug, $vhostUrl).'</li>';
-          }
-          ?>
-      </ul>
-    </div>
-    <?php } ?>
   </div>
