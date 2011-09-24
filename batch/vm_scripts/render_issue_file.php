@@ -1,5 +1,6 @@
 #!/usr/bin/php
 <?php
+sleep(3);
 $ipAddr = `ifconfig eth0 | grep inet\ addr | cut -f2 -d: | cut -f1 -d\  2> /dev/null`;
 $ipAddr = trim($ipAddr);
 
