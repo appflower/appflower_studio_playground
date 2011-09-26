@@ -10,3 +10,6 @@
 [submodule "lib/vendor/symfony"]
 	path = lib/vendor/symfony
 	url = git://github.com/appflower/symfony-1.4.git
+[submodule "plugins/sfPropel15Plugin"]
+	path = plugins/sfPropel15Plugin
+	url = git://github.com/appflower/sfPropel15Plugin.git
