@@ -1,7 +1,2 @@
 all:
-  is_secure: true
-  credentials: admin
-
-dashboard:
-  is_secure: true
-  credentials: dashboard_view
+  is_secure: false
