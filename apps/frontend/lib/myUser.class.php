@@ -10,11 +10,8 @@ class myUser extends sfBasicSecurityUser
     }
     
     
-    /*
-        TODO remove dependency from engine this methods
-    */
-    public function getAppFlowerUser() { return $this; }
-    public function isAnonymous() { return true; }
-    public function getId() {}
-    
+    public function getAppFlowerUser()
+    {
+        return new AppFlowerAnonymousUser();
+    }
 }
