@@ -6,7 +6,7 @@
  * @author Łukasz Wojciechowski <luwo@appflower.com>
  * @author Sergey Startsev <startsev.sergey@gmail.com>
  */
-class myUser extends sfBasicSecurityUser implements AppFlowerSecurityUser
+class myUser extends afGuardSecurityUser implements AppFlowerSecurityUser
 {
     /**
      * Init method
