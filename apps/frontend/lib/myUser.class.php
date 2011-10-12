@@ -1,7 +1,21 @@
 <?php
-
-class myUser extends sfBasicSecurityUser
+/**
+ * Application User functionality
+ *
+ * @package Studio Playground
+ * @author Łukasz Wojciechowski <luwo@appflower.com>
+ * @author Sergey Startsev <startsev.sergey@gmail.com>
+ */
+class myUser extends sfBasicSecurityUser implements AppFlowerSecurityUser
 {
+    /**
+     * Init method
+     *
+     * @param sfEventDispatcher $dispatcher 
+     * @param sfStorage $storage 
+     * @param array $options 
+     * @return void
+     */
     public function initialize(sfEventDispatcher $dispatcher, sfStorage $storage, $options = array())
     {
         // set timeout
@@ -9,9 +23,15 @@ class myUser extends sfBasicSecurityUser
         parent::initialize($dispatcher, $storage, $options);
     }
     
-    
+    /**
+     * Getting AppFlower User
+     *
+     * @return object
+     * @author Łukasz Wojciechowski <luwo@appflower.com>
+     */
     public function getAppFlowerUser()
     {
-        return new AppFlowerAnonymousUser();
+        return new AppFlowerAnonymousUser;
     }
+    
 }
