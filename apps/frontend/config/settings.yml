@@ -40,7 +40,7 @@ all:
     login_module:           afGuardAuth   # To be called when a non-authenticated user
     login_action:           signin        # Tries to access a secure page
 
-    secure_module:          pages   # To be called when a user doesn't have
+    secure_module:          afGuardAuth   # To be called when a user doesn't have
     secure_action:          insufficientCredentials        # The credentials required for an action
     
     error_404_module: pages   # To be called when a 404 error is raised
