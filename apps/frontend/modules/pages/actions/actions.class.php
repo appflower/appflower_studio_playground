@@ -8,30 +8,6 @@
 class pagesActions extends CustomActions
 {
     /**
-     * Check creadentials
-     *
-     * @param sfWebRequest $request 
-     */
-    public function executeInsufficientCredentials(sfWebRequest $request)
-    {
-        if ($request->isXmlHttpRequest()) {
-            return JsonUtil::renderFailure($this, '<b style="color:red">You do not have sufficient credentials to do the action.<b>');
-        }
-        
-        $this->init = true;
-        $this->title = "Insufficient Credentials";
-        $this->html = "<div style = 'padding:10px;text-align:center; font-weight:bold;height:100px; padding-top:30px;color:red'>You do not have sufficient credentials to view this page</div>";
-        $this->current = 1;
-        $this->id = $request->getParameter('id', 'new');
-        $parser = new XmlParser(true);
-        $this->layout = $parser->getLayout();
-        $this->setLayout("layoutExtjs");
-        $this->setTemplate("ext");
-        
-        return sfView::SUCCESS;
-    }
-    
-    /**
      * Error 404 action
      *
      * @param sfWebRequest $request 
@@ -70,10 +46,5 @@ class pagesActions extends CustomActions
         
         return sfView::SUCCESS;
     }
-    
-    /**
-     * Dashboard action 
-     */
-    public function executeDashboard() {}
     
 }
