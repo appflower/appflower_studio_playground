@@ -23,8 +23,9 @@ Error: we couldn\'t predict the IP address. Login and use \'ifconfig\' command.'
 $issueContent.=
 '
 
-To login to the Console use user: root and password: appflower
-You can change the password after login with the command passwd
+To login to the Console use user: \'root\' and password: \'appflower\'
+You can change the password after login with the command \'passwd\'
+
 ';
 
 $appflowerAscii = file_get_contents(__DIR__.'/appflower.ascii');
