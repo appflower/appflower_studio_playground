@@ -6,11 +6,27 @@ $ipAddr = trim($ipAddr);
 
 $issueContent=
 '
-To use your AppFlower Virtual Machine - open below URL in your browser:
+Welcome to the AppFlower Virtual Machine.
 
-http://'.$ipAddr.'/
-
+To use the AppFlower IDE open the following URL in your browser:
 ';
+
+if ($ipAddr != '') {
+$issueContent.=
+'
+http://'.$ipAddr.'/';
+} else {
+$issueContent.=
+'
+Error: we couldn\'t predict the IP address. Login and use \'ifconfig\' command.';
+}
+$issueContent.=
+'
+
+To login to the Console use user: root and password: appflower
+You can change the password after login with the command passwd
+';
+
 $appflowerAscii = file_get_contents(__DIR__.'/appflower.ascii');
 $appflowerAscii = str_replace('\\', '\\\\', $appflowerAscii);
 file_put_contents('/etc/issue', $appflowerAscii.$issueContent);
