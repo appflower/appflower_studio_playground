@@ -1,12 +1,12 @@
 [submodule "plugins/appFlowerPlugin"]
 	path = plugins/appFlowerPlugin
-	url = git@github.com:appflower/appflower_engine.git
+	url = git://github.com/appflower/appflower_engine.git
 [submodule "plugins/appFlowerStudioPlugin"]
 	path = plugins/appFlowerStudioPlugin
-	url = git@github.com:appflower/appflower_studio.git
+	url = git://github.com/appflower/appflower_studio.git
 [submodule "plugins/sfPropelSqlDiffPlugin"]
 	path = plugins/sfPropelSqlDiffPlugin
-	url = git@github.com:appflower/sfPropelSqlDiffPlugin.git
+	url = git://github.com/appflower/sfPropelSqlDiffPlugin.git
 [submodule "lib/vendor/symfony"]
 	path = lib/vendor/symfony
 	url = git://github.com/appflower/symfony-1.4.git
@@ -15,4 +15,4 @@
 	url = git://github.com/appflower/sfPropel15Plugin.git
 [submodule "plugins/afGuardPlugin"]
 	path = plugins/afGuardPlugin
-	url = git@github.com:appflower/afGuardPlugin.git
+	url = git://github.com/appflower/afGuardPlugin.git
