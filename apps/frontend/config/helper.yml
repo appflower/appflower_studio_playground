@@ -1,0 +1,8 @@
+menu:
+  _attributes: { title: 'App Flower' }
+  dashboard:
+    _attributes: { type: 'button' }
+    icon: '/images/famfamfam/house_go.png'
+    label: 'Dashboard'
+    handler: 'afApp.load("/logout", "page");'
+    tooltip: { text: 'Your review', title: 'Project dashboard' }
