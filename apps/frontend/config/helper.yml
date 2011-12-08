@@ -1,9 +1,15 @@
 menu:
-  attributes: { title: 'App Flower' }
+  attributes:
+    title: 'App Flower'
   main:
     dashboard:
-      attributes: 
+      attributes:
         label: 'Dashboard page'
-        icon: '/images/famfamfam/house_go.png'
+        icon: /images/famfamfam/house_go.png
         type: button
         handler: 'afApp.load("/logout", "page");'
+links:
+  dashboard:
+    title: Home
+    iconCls: ''
+    url: /
