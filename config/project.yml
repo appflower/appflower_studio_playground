@@ -1,6 +1,6 @@
 project:
   name: 'Studio playground'
-  url: 'http://centos:583'
+  url: ''
   description: 'This is the Studio''s playground, will be used for new projects'
   autodeploy: true
   template: desktop
