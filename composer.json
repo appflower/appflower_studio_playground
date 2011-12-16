@@ -38,7 +38,7 @@
     ],
     "require": {
         "php": ">=5.3.0",
-        "appFlower/engine": "1.2",
+        "appFlower/engine": "1.2.0",
         "appFlower/studio": "1.1.0beta"
     }
 }
