@@ -2,7 +2,7 @@
   <div id="page">
     <div id="logo">
       <a href="http://www.appflower.com"><h1>Appflower</h1></a>
-      <p>Version 1.1b</p>
+      <p>Version 1.2</p>
       <div class="clear"></div>
     </div>
     <div id="primary_content" class="content">
