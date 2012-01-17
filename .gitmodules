@@ -16,3 +16,6 @@
 [submodule "plugins/afGuardPlugin"]
 	path = plugins/afGuardPlugin
 	url = git://github.com/appflower/afGuardPlugin.git
+[submodule "plugins/sfPropelORMPlugin"]
+	path = plugins/sfPropelORMPlugin
+	url = git://github.com/propelorm/sfPropelORMPlugin.git
