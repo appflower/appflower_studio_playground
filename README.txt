@@ -1,4 +1,4 @@
-# AppFlower Installation
+# AppFlower Installation #
 The AppFlower project consists of two major components: the AppFlower Engine, which is the heart of the technology and the visual builder to create your application, AppFlower Studio. On GitHub we maintain several other git repositories, where you will find plugins and other bundled distributions of appFlower. The project used in this tutorial is the AppFlower Playground project with Studio integrated.
 
 In addition to these git repositories we a few other installations options available for those not choosing to use git. Visit the http://www.appflower.com/cms/download page for more details.
