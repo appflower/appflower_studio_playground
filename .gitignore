@@ -1,2 +1,4 @@
 /cache/*
 /log/*
+
+.DS_store
