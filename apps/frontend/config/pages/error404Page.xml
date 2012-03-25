@@ -1,12 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<i:view xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-xsi:schemaLocation="http://www.appflower.com /schema/appflower.xsd"
-xmlns:i="http://www.appflower.com/schema/" type="html">	
-	
-	<i:title>404 Error - Page not found</i:title>
-
-	<i:params>
-		<i:param name="html">Sorry but the page you are looking for is missing.</i:param>
-	</i:params>
-	
+<i:view xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.appflower.com /schema/appflower.xsd" xmlns:i="http://www.appflower.com/schema/" type="html">
+    <i:title>404 Error - Page not found</i:title>
+    <i:params>
+        <i:param name="html">Sorry but the page you are looking for is missing.</i:param>
+    </i:params>
 </i:view>
