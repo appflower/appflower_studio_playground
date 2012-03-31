@@ -13,32 +13,32 @@ In order to use AppFlower, your development environment has to meet certain requ
 
 *2.2 Get the AppFlower Repository*
 
- git clone git://github.com/appflower/appflower_studio_playground.git /your_web_root_path/myproject
+    git clone git://github.com/appflower/appflower_studio_playground.git /your_web_root_path/myproject
 
 
 *2.3 Fetch AppFlower Dependencies:*  change your current directory to the project directory and fetch the needed dependencies:
 
- cd /your_web_root_path/myproject
- git submodule init
- git submodule update
+    cd /your_web_root_path/myproject
+    git submodule init
+    git submodule update
 
 
 *2.4 Check Environment:*  you can run the batch/check_configuration.php file to test if your php environment is correctly configured before you continue.
 
- php batch/check_configuration.php
+    php batch/check_configuration.php
 
 ## Step 3: Configuring AppFlower
 *** 3.1 Database Settings:***  Adjust the database settings. Basically, you'll have to update two system files with the name of your MySQL database and the username and password to access it:
 
 myproject/config/databases.yml : Locate the lines below and change them appropriately:
 
- all:
-  propel:
-      ...
-      dsn:        mysql:dbname=yourdb;host=localhost
-      username:   someuser
-      password:   somepass
-      ...
+    all:
+     propel:
+         ...
+         dsn:        mysql:dbname=yourdb;host=localhost
+         username:   someuser
+         password:   somepass
+         ...
 
 myproject/config/propel.ini : This one is longer, change only the following lines:
 
