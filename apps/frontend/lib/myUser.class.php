@@ -31,7 +31,12 @@ class myUser extends afGuardSecurityUser implements AppFlowerSecurityUser
      */
     public function getAppFlowerUser()
     {
-        return new AppFlowerAnonymousUser;
+        $guardUser = $this->getGuardUser();
+        if ($guardUser) {
+            return $guardUser;
+        } else {
+            return new AppFlowerAnonymousUser;
+        }
     }
     
 }
